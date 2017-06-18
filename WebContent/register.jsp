@@ -22,7 +22,7 @@
 			<h1 class="logo-caption"><span class="tweak">R</span>EGISTER <span class="tweak">Y</span>OUR</h1>
 			<h1 class="logo-caption"><span class="tweak">S</span>HOPPING <span class="tweak">L</span>IST</h1>
 		</div><!-- /.logo -->
-		<form class="controls" action="j_security_check" method="post">
+		<form class="form-singin" method="post" action="register">
 			<input type="email" name="inputEmail" placeholder="Email" class="form-control" required autofocus>
 			<input type="text" name="inputUsername" placeholder="Username" class="form-control" required autofocus>
 			<input type="password" name="inputPassword" placeholder="Password" class="form-control" required>

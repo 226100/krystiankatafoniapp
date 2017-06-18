@@ -22,12 +22,12 @@
 				<h1 class="logo-caption"><span class="tweak">S</span>HOPPING</h1>
 				<h1 class="logo-caption"><span class="tweak">L</span>IST</h1>
 			</div><!-- /.logo -->
-			<form class="controls" action="j_security_check" method="post">
+			<form class="controls"  method="post">
 				<input type="text" name="username" placeholder="Username" class="form-control" required autofocus>
 				<input type="password" name="username" placeholder="Password" class="form-control" required>
 				<button type="submit" class="btn btn-default btn-block btn-login">Login</button>	
 			</form><!-- /.controls -->
-			<form action="register.jsp" >	
+			<form action="register" method="get">	
 				<button type="submit" class="btn btn-default btn-block btn-register">Register</button>
 			</form>
 			
