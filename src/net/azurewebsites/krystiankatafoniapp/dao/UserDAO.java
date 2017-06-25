@@ -5,6 +5,6 @@ import java.util.List;
 import net.azurewebsites.krystiankatafoniapp.model.User;
 
 public interface UserDAO extends GenericDAO<User,Long> {
-	List<User> getAll();
-	User getUserByUsername();
+	List<User> getAll(Long userId);
+	User getUserByUsername(String user);
 }

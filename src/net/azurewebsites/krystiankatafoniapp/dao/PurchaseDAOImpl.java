@@ -31,7 +31,7 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 	}
 
 	@Override
-	public List<Purchase> getAll() {
+	public List<Purchase> getAll(Long userId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

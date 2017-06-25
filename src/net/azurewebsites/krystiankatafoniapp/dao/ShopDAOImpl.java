@@ -31,7 +31,7 @@ public class ShopDAOImpl implements ShopDAO {
 	}
 
 	@Override
-	public List<Shop> getAll() {
+	public List<Shop> getAll(Long userId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

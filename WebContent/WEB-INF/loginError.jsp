@@ -1,6 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,9 +12,6 @@
 	</head>
 	
   <body>
-  <c:if test="${not empty sessionScope.user}">
-  	<c:redirect url="login"/>
-  </c:if>
 	<div class="container">
 		<div id="login-box">
 			<div class="logo">
@@ -25,13 +19,17 @@
 				<h1 class="logo-caption"><span class="tweak">S</span>HOPPING</h1>
 				<h1 class="logo-caption"><span class="tweak">L</span>IST</h1>
 			</div><!-- /.logo -->
-			<form class="controls" action="login" method="get">
-				<button type="submit" class="btn btn-default btn-block btn-login">Sign In</button>	
+			<form class="controls" action="j_security_check" method="post">
+				<input type="text" name="j_username" placeholder="Username" class="form-control" required autofocus>
+				<input type="password" name="j_password" placeholder="Password" class="form-control" required>
+				<button type="submit" class="btn btn-default btn-block btn-login">Login</button>	
 			</form><!-- /.controls -->
 			<form action="register" method="get">	
 				<button type="submit" class="btn btn-default btn-block btn-register">Register</button>
 			</form>
-			
+			<div class="logo">
+				<h3 class="logo-caption">LOGIN <span class="tweak">FAILED</span></h3>
+			</div>
 		</div><!-- /#login-box -->
 	</div><!-- /.container -->
 	<div id="particles-js"></div>

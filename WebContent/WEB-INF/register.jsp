@@ -23,12 +23,12 @@
 			<h1 class="logo-caption"><span class="tweak">S</span>HOPPING <span class="tweak">L</span>IST</h1>
 		</div><!-- /.logo -->
 		<form class="form-singin" method="post" action="register">
-			<input type="email" name="inputEmail" placeholder="Email" class="form-control" required autofocus>
 			<input type="text" name="inputUsername" placeholder="Username" class="form-control" required autofocus>
+			<input type="email" name="inputEmail" placeholder="Email" class="form-control" required autofocus>
 			<input type="password" name="inputPassword" placeholder="Password" class="form-control" required>
 			<button type="submit" class="btn btn-default btn-block btn-login">Register user</button>
 		</form><!-- /.controls -->
-			<form action="index.jsp" >	
+			<form action="login" >	
 				<button type="submit" class="btn btn-default btn-block btn-register">Sign In</button>
 			</form>
 	</div><!-- /#login-box -->

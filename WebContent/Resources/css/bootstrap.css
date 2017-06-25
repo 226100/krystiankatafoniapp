@@ -1586,6 +1586,9 @@ pre code {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+    background-repeat: no-repeat;    /*background-image: linear-gradient(rgb(12, 97, 33),rgb(104, 145, 162));*/
+	background-image: linear-gradient(#928DAB,#1F1C2C);
+	position: relative;
 }
 @media (min-width: 768px) {
   .container {

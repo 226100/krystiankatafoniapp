@@ -3,13 +3,21 @@ package net.azurewebsites.krystiankatafoniapp.model;
 import java.util.Objects;
 
 public class Category {
+	long id;
 	private String categoryname;
 	private long userId;
 	
-	Category(){};
-	Category(Category category){
+	public Category(){};
+	public Category(Category category){
+		this.id=category.id;
 		this.categoryname=category.categoryname;
 		this.userId=category.userId;
+	}
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
 	}
 	public String getCategoryname() {
 		return categoryname;
@@ -25,18 +33,18 @@ public class Category {
 	}
 	@Override
 	public String toString() {
-		return "Category [categoryname=" + categoryname + ", userId=" + userId + "]";
+		return "Category [id="+ id + ", categoryname=" + categoryname + ", userId=" + userId + "]";
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.categoryname, this.userId);
+		return Objects.hash(this.id, this.categoryname, this.userId);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Category) {
 			Category category = (Category) obj;
-			return Objects.equals(this.categoryname, category.categoryname) && Objects.equals(this.userId, category.userId);
+			return Objects.equals(this.id, category.id)&&Objects.equals(this.categoryname, category.categoryname) && Objects.equals(this.userId, category.userId);
 		}
 		return false;
 	}
