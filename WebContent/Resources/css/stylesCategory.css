@@ -1,6 +1,5 @@
- .panel-table .panel-body{
+.panel-table .panel-body{
   padding:0;
-
 }
 
 .panel-table .panel-body .table-bordered{
@@ -56,6 +55,9 @@ used to vertically center elements, may need modification if you're not using de
   min-height: 100vh; /* These two lines are counted as one :-)       */
   display: flex;
   align-items: center;
-  
 }
-
+.modal-change {
+top:36%;
+right:-5%;
+outline: none;
+}

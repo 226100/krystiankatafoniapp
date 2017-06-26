@@ -4,45 +4,40 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <div class="nav-side-menu">
-    <div class="brand">WELCOME <c:out value="${fn:toUpperCase(sessionScope.user.username)}"/></div>
+   <div class="brand"><b> WELCOME <c:out value="${fn:toUpperCase(sessionScope.user.username)}"/></b></div>
     <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
   
         <div class="menu-list">
   
             <ul id="menu-content" class="menu-content collapse out">
-           
+           	
                 <li onclick="location.href = 'login';">
  
-                  <i class="fa fa-dashboard fa-lg"></i> Overview               
+                  <i class="fa fa-globe fa-lg"></i> Overview               
                 </li>
+                
 			
                 <li data-toggle="collapse" data-target="#service" class="collapsed">
-                  <a href="#"><i class="fa fa-globe fa-lg"></i> Purchases </a>
-                </li>  
-                <ul class="sub-menu collapse" id="service">
-                  <li>New Service 1</li>
-                  <li>New Service 2</li>
-                  <li>New Service 3</li>
-                </ul>
-
-
+                  <i class="fa fa-shopping-cart"></i> Purchases 
+                </li>
+                
                 <li onclick="location.href = 'category';">  
-                  <i class="fa fa-car fa-lg"></i> Categories                  
+                  <i class="fa fa-cubes"></i> Categories                  
                 </li>
                
                  <li>
-                  <a href="#">
-                  <i class="fa fa-user fa-lg"></i> Shops
-                  </a>
+                  
+                  <i class="fa fa-home"></i> Shops
+                  
                   </li>
 				  <li>
-                  <a href="#">
-                  <i class="fa fa-user fa-lg"></i> Statistics
-                  </a>
+                  
+                  <i class="fa fa-area-chart"></i> Statistics
+                  
                   </li>
 				
                  <li onclick="location.href = 'logout';">  
-                  <i class="fa fa-users fa-lg"></i> Logout  
+                  <i class="fa fa-power-off"></i> Logout  
 					
                 </li>
                 

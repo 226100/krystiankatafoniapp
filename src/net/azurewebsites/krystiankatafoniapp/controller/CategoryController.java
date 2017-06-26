@@ -31,7 +31,7 @@ public class CategoryController extends HttpServlet {
 		User userInSession = (User)request.getSession().getAttribute("user");
 		CategoryService categoryService = new CategoryService();
 		categoryService.addCategory(categoryname, userInSession);
-		response.sendRedirect(request.getContextPath()+"/login");
+		response.sendRedirect(request.getContextPath()+"/category");
 	}
 
 }

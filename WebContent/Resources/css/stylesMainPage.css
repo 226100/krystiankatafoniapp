@@ -1,6 +1,5 @@
-        .panel-table .panel-body{
+.panel-table .panel-body{
   padding:0;
-
 }
 
 .panel-table .panel-body .table-bordered{
@@ -51,6 +50,9 @@ used to vertically center elements, may need modification if you're not using de
 .panel-table .panel-body .table-bordered > tbody > tr > td{
   line-height: 34px;
 }
-.back{
-background: rgba(48, 46, 45, 1);
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+  display: flex;
+  align-items: center;
 }
