@@ -21,7 +21,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 	private static final String CREATE_CATEGORY = "INSERT INTO category(category_name,user_id) VALUES(:categoryname,:userId);";
 	private static final String READ_CATEGORY = "SELECT category_id, category_name, user_id FROM category WHERE category_id=:category_id;";
 	private static final String UPDATE_CATEGORY = "UPDATE category SET category_name=:categoryname, user_id=:user_id WHERE category_id=:category_id;";
-	private static final String DELETE_CATEGORY = "DELETE FROM category WHERE category_id=:id";
+	private static final String DELETE_CATEGORY = "DELETE FROM category WHERE category_id=:categoryId ";
 	private static final String READ_ALL_CATEGORIES = "SELECT category_id, category_name, user_id FROM category WHERE user_id=:user_id;";
 	NamedParameterJdbcTemplate template;
 
@@ -70,7 +70,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 	public boolean delete(Long key) {
 
 		boolean result = false;
-		SqlParameterSource paramSource = new MapSqlParameterSource("id", key);
+		SqlParameterSource paramSource = new MapSqlParameterSource("categoryId", key);
 		int update = template.update(DELETE_CATEGORY, paramSource);
 		if (update > 0) {
 			result = true;

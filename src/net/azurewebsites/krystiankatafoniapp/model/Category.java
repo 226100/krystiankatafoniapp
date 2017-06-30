@@ -13,6 +13,11 @@ public class Category {
 		this.categoryname=category.categoryname;
 		this.userId=category.userId;
 	}
+	public Category(long id, String categoryname, long userId){
+		this.id=id;
+		this.categoryname=categoryname;
+		this.userId=userId;
+	}
 	public long getId() {
 		return id;
 	}

@@ -7,7 +7,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Shopping List - Category List</title>
+<title>Shopping List - Shop List</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/Resources/js/custom.js"></script>
@@ -45,7 +45,7 @@
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col col-xs-6">
-									<h3 class="panel-title">All Categories</h3>
+									<h3 class="panel-title">All Shops</h3>
 								</div>
 								<div class="col col-xs-6 text-right">
 									<button type="button" data-toggle="modal" data-target="#new"
@@ -64,33 +64,29 @@
 								</thead>
 								<tbody>
 									<%!int counter = 0;%>
-									<c:forEach var="categoryItem"
-										items="${requestScope.categoryList }">
+									<c:forEach var="shopItem" items="${requestScope.shopList }">
 										<tr>
 											<%
 												counter++;
 											%>
 											<td align="center">
-
-
 												<button type="button" data-toggle="modal"
-													data-target="#update" data-id="${categoryItem.id }"
-													data-user-id="${categoryItem.userId }"
-													data-categoryname="${categoryItem.categoryname }"
+													data-target="#update" data-id="${shopItem.id }"
+													data-user-id="${shopItem.userId }"
+													data-shopname="${shopItem.shopname }"
 													class="btn btn-default">
 													<em class="fa fa-pencil"></em>
 												</button>
-												<form class="special-form"
-													id="deleteForm${categoryItem.id }" action="deleteCategory"
-													method="post">
-													<input type="hidden" name="categoryId"
-														value="${categoryItem.id }" /> <a
-														onclick="document.getElementById('deleteForm${categoryItem.id }').submit()"
+												<form class="special-form" id="deleteForm${shopItem.id }"
+													action="deleteShop" method="post">
+													<input type="hidden" name="shopId"
+														value="${shopItem.id }" /> <a
+														onclick="document.getElementById('deleteForm${shopItem.id }').submit()"
 														class="btn btn-danger"><em class="fa fa-trash"></em></a>
 												</form>
 											</td>
 											<td class="hidden-xs"><%=counter%></td>
-											<td><c:out value="${categoryItem.categoryname }" /></td>
+											<td><c:out value="${shopItem.shopname }" /></td>
 										</tr>
 									</c:forEach>
 									<%
@@ -126,21 +122,20 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">×</button>
-					<h2 class="modal-title" id="myModalLabel">Add category</h2>
+					<h2 class="modal-title" id="myModalLabel">Add Shop</h2>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" method="post" action="addCategory">
+					<form class="form-horizontal" method="post" action="addShop">
 						<fieldset>
-							<!-- Form Name -->
-							<!-- Prepended text-->
+
 							<div class="form-group">
-								<label class="col-md-4 control-label" for="prependedtext">Category
+								<label class="col-md-4 control-label" for="prependedtext">Shop
 									name</label>
 								<div class="col-md-5">
 									<div class="input-group">
 
-										<input id="prependedtext" name="categoryname"
-											class="form-control" placeholder="Your category" type="text"
+										<input id="prependedtext" name="shopname"
+											class="form-control" placeholder="Your shop" type="text"
 											required autofocus>
 									</div>
 								</div>
@@ -169,19 +164,19 @@
 					<h2 class="modal-title" id="myModalLabel">Update name</h2>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" method="post" action="updateCategory">
-						<input type="hidden" id="id" name="id" type="text" >
-						<input type="hidden" id="userId" name="userId" type="text" >
+					<form class="form-horizontal" method="post" action="updateShop">
+						<input type="hidden" id="id" name="id" type="text"> <input
+							type="hidden" id="userId" name="userId" type="text">
 						<fieldset>
 							<!-- Form Name -->
 							<!-- Prepended text-->
 							<div class="form-group">
-								<label class="col-md-4 control-label" for="prependedtext">Category
+								<label class="col-md-4 control-label" for="prependedtext">Shop
 									name</label>
 								<div class="col-md-5">
 									<div class="input-group">
-										<input id="categoryname" name="categoryname"
-											class="form-control" placeholder="categoryname" type="text"
+										<input id="shopname" name="shopname"
+											class="form-control" placeholder="shopname" type="text"
 											required autofocus>
 									</div>
 								</div>
@@ -207,16 +202,17 @@
 							//get data-id attribute of the clicked element
 							var id = $(e.relatedTarget).data('id');
 							var userId = $(e.relatedTarget).data('user-id');
-							var categoryname = $(e.relatedTarget).data(
-									'categoryname');
+							var shopname = $(e.relatedTarget).data(
+									'shopname');
 							//populate the textbox
 							$(e.currentTarget).find('input[name="id"]').val(id);
 							$(e.currentTarget).find('input[name="userId"]')
 									.val(userId);
 							$(e.currentTarget).find(
-									'input[name="categoryname"]').val(
-									categoryname);
+									'input[name="shopname"]').val(
+									shopname);
 						});
 	</script>
+
 </body>
 </html>
