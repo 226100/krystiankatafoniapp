@@ -1,4 +1,4 @@
-package net.azurewebsites.krystiankatafoniapp.controller;
+package net.azurewebsites.krystiankatafoniapp.controller.shop;
 
 import java.io.IOException;
 import java.util.List;

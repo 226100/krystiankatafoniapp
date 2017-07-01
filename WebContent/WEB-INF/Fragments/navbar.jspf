@@ -12,12 +12,11 @@
             <ul id="menu-content" class="menu-content collapse out">
            	
                 <li onclick="location.href = 'login';">
- 
                   <i class="fa fa-globe fa-lg"></i> Overview               
                 </li>
                 
 			
-                <li data-toggle="collapse" data-target="#service" class="collapsed">
+                <li onclick="location.href = 'purchase';">
                   <i class="fa fa-shopping-cart"></i> Purchases 
                 </li>
                 
@@ -27,10 +26,9 @@
                
                  <li onclick="location.href = 'shop';">  
                   <i class="fa fa-home"></i> Shops
-                  
                   </li>
-				  <li>
                   
+				  <li onclick="location.href = 'statistics';">
                   <i class="fa fa-area-chart"></i> Statistics
                   
                   </li>

@@ -1,4 +1,4 @@
-package net.azurewebsites.krystiankatafoniapp.controller;
+package net.azurewebsites.krystiankatafoniapp.controller.category;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

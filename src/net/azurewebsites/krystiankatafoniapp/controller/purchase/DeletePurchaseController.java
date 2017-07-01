@@ -1,4 +1,4 @@
-package net.azurewebsites.krystiankatafoniapp.controller;
+package net.azurewebsites.krystiankatafoniapp.controller.purchase;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,24 +7,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.azurewebsites.krystiankatafoniapp.model.User;
 import net.azurewebsites.krystiankatafoniapp.service.CategoryService;
+import net.azurewebsites.krystiankatafoniapp.service.PurchaseService;
 
-
-@WebServlet("/deleteCategory")
-public class DeleteCategoryController extends HttpServlet {
+@WebServlet("/deletePurchase")
+public class DeletePurchaseController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		Long categoryId = Long.parseLong(request.getParameter("categoryId"));
-		CategoryService categoryService = new CategoryService();
-		categoryService.deleteCategory(categoryId);
-		response.sendRedirect(request.getContextPath()+"/category");
+		Long purchaseId = Long.parseLong(request.getParameter("purchaseId"));
+		PurchaseService purchaseService = new PurchaseService();
+		purchaseService.deletePurchase(purchaseId);
+		response.sendRedirect(request.getContextPath()+"/purchase");
 	}
 
 }

@@ -45,7 +45,7 @@
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col col-xs-6">
-									<h3 class="panel-title">All Categories</h3>
+									 <i class="fa fa-cubes"></i><h3 class="panel-title" style="display:inline-block;">&nbsp;&nbsp;&nbsp;All Categories</h3>
 								</div>
 								<div class="col col-xs-6 text-right">
 									<button type="button" data-toggle="modal" data-target="#new"

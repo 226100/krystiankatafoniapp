@@ -1,4 +1,4 @@
-package net.azurewebsites.krystiankatafoniapp.controller;
+package net.azurewebsites.krystiankatafoniapp.controller.category;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,16 +16,11 @@ import net.azurewebsites.krystiankatafoniapp.service.CategoryService;
 /**
  * Servlet implementation class AddCategoryController
  */
-@WebServlet("/category")
-public class CategoryController extends HttpServlet {
+@WebServlet("/addCategory")
+public class AddCategoryController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Category> categoryList = null;
-		User userInSession = (User)request.getSession().getAttribute("user");
-		CategoryService categoryService = new CategoryService();
-		categoryList=categoryService.getAll(userInSession);
-		request.setAttribute("categoryList", categoryList);
 		if(request.getUserPrincipal()!=null){
 			request.getRequestDispatcher("WEB-INF/category.jsp").forward(request, response);
 		}else{
@@ -34,7 +29,13 @@ public class CategoryController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request,response);
+	
+		request.setCharacterEncoding("UTF-8");
+		String categoryname = request.getParameter("categoryname");
+		User userInSession = (User)request.getSession().getAttribute("user");
+		CategoryService categoryService = new CategoryService();
+		categoryService.addCategory(categoryname, userInSession);
+		response.sendRedirect(request.getContextPath()+"/category");
 	}
 
 }

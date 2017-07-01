@@ -7,10 +7,12 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Shopping List - Shop List</title>
+<title>Shopping List - Category List</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/Resources/js/custom.js"></script>
+	
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link
 	href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
@@ -24,6 +26,7 @@
 <link
 	href="${pageContext.request.contextPath}/Resources/css/stylesCategory.css"
 	type="text/css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.js"></script>
 </head>
 <body>
 	<link
@@ -45,7 +48,7 @@
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col col-xs-6">
-									<i class="fa fa-home"></i><h3 class="panel-title" style="display:inline-block;">&nbsp;&nbsp;&nbsp;All Shops</h3>
+									 <i class="fa fa-cubes"></i><h3 class="panel-title" style="display:inline-block;">&nbsp;&nbsp;&nbsp;All Purchases</h3>
 								</div>
 								<div class="col col-xs-6 text-right">
 									<button type="button" data-toggle="modal" data-target="#new"
@@ -60,33 +63,47 @@
 										<th><em class="fa fa-cog"></em></th>
 										<th class="hidden-xs">ID</th>
 										<th>Name</th>
+										<th>Category</th>
+										<th>Shop</th>
+										<th>Price</th>
+										<th>Time</th>
 									</tr>
 								</thead>
 								<tbody>
 									<%!int counter = 0;%>
-									<c:forEach var="shopItem" items="${requestScope.shopList }">
+									<c:forEach var="purchaseItem"
+										items="${requestScope.purchaseList }">
 										<tr>
 											<%
 												counter++;
 											%>
 											<td align="center">
+
+
 												<button type="button" data-toggle="modal"
-													data-target="#update" data-id="${shopItem.id }"
-													data-user-id="${shopItem.userId }"
-													data-shopname="${shopItem.shopname }"
+													data-target="#update" data-id="${purchaseItem.id }"
+													data-user-id="${purchaseItem.user.id }"
+													data-categoryname="${purchaseItem.category.categoryname }"
+													data-shopname="${purchaseItem.shop.shopname }"
+													data-price="${purchaseItem.price }"
 													class="btn btn-default">
 													<em class="fa fa-pencil"></em>
 												</button>
-												<form class="special-form" id="deleteForm${shopItem.id }"
-													action="deleteShop" method="post">
-													<input type="hidden" name="shopId"
-														value="${shopItem.id }" /> <a
-														onclick="document.getElementById('deleteForm${shopItem.id }').submit()"
+												<form class="special-form"
+													id="deleteForm${purchaseItem.id }" action="deletePurchase"
+													method="post">
+													<input type="hidden" name="purchaseId"
+														value="${purchaseItem.id }" /> <a
+														onclick="document.getElementById('deleteForm${purchaseItem.id }').submit()"
 														class="btn btn-danger"><em class="fa fa-trash"></em></a>
 												</form>
 											</td>
 											<td class="hidden-xs"><%=counter%></td>
-											<td><c:out value="${shopItem.shopname }" /></td>
+											<td><c:out value="${purchaseItem.purchasename }" /></td>
+											<td><c:out value="${purchaseItem.category.categoryname }" /></td>
+											<td><c:out value="${purchaseItem.shop.shopname }" /></td>
+											<td><c:out value="${purchaseItem.price }" /></td>
+											<td><c:out value="${purchaseItem.timestamp }" /></td>
 										</tr>
 									</c:forEach>
 									<%
@@ -122,36 +139,83 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">×</button>
-					<h2 class="modal-title" id="myModalLabel">Add Shop</h2>
+					<h2 class="modal-title" id="myModalLabel">Add purchase</h2>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" method="post" action="addShop">
+					<form data-toggle="validator" role="form" id="newpurchase" class="form-horizontal" method="post" action="addPurchase">
 						<fieldset>
-
+							<!-- Form Name -->
+							<!-- Prepended text-->
 							<div class="form-group">
-								<label class="col-md-4 control-label" for="prependedtext">Shop
+								<label class="col-md-4 control-label" for="prependedtext">Purchase
 									name</label>
 								<div class="col-md-5">
 									<div class="input-group">
 
-										<input id="prependedtext" name="shopname"
-											class="form-control" placeholder="Your shop" type="text"
+										<input id="purchasename" name="purchasename"
+											class="form-control" placeholder="Purchase name" type="text"
 											required autofocus>
+											
 									</div>
-								</div>
+									</div>
+									</div>		
+					
+									<div class="form-group">		
+									<label class="col-md-4 control-label" for="shop">Select shop</label>
+     								<div class="col-md-5">
+									<div class="input-group">
+     								 <select class="form-control" id="shopname" name="shopname" required>
+       								<c:forEach var="shopItem"
+										items="${requestScope.shopList }">
+       								 <option>${shopItem.shopname }</option>
 
+        							</c:forEach>
+      								</select>
+      								</div>
+									</div>
+									</div>
+      								
+      								<div class="form-group">		
+									<label class="col-md-4 control-label" for="categoryname">Select category</label>
+     								<div class="col-md-5">
+									<div class="input-group">
+     								 <select class="form-control" id="categoryname" name = "categoryname" required>
+       								<c:forEach var="categoryItem"
+										items="${requestScope.categoryList }">
+       								 <option>${categoryItem.categoryname }</option>
 
-								<button type="submit" class="btn btn-primary">
+        							</c:forEach>
+      								</select>
+      								</div>
+									</div>
+									</div>
+      								<div class="form-group">		
+									<label class="col-md-4 control-label" for="price">Price</label>
+     								<div class="col-md-5">
+									<div class="input-group">
+      										<input id="price" name="price" pattern="[+]?([0-9]*[.])?[0-9]+" maxlength="8"
+											class="form-control" placeholder="Price" type="text"
+											required autofocus>
+											<div class="help-block">Float, positive number</div>
+     										 </div>
+									</div>
+									</div>
+																	<div class="col-md-12 col-md-offset-7">
+								<button type="submit" class="btn btn-primary ">
 									<i class="fa fa-fw fa-save"></i>Save
 								</button>
-							</div>
+								</div>
+									</div>
+
+							
 							<!-- Button -->
 						</fieldset>
 					</form>
 				</div>
 			</div>
 		</div>
-	</div>
+		</div>
+	
 
 
 
@@ -164,19 +228,19 @@
 					<h2 class="modal-title" id="myModalLabel">Update name</h2>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" method="post" action="updateShop">
-						<input type="hidden" id="id" name="id" type="text"> <input
-							type="hidden" id="userId" name="userId" type="text">
+					<form class="form-horizontal" method="post" action="updateCategory">
+						<input type="hidden" id="id" name="id" type="text" >
+						<input type="hidden" id="userId" name="userId" type="text" >
 						<fieldset>
 							<!-- Form Name -->
 							<!-- Prepended text-->
 							<div class="form-group">
-								<label class="col-md-4 control-label" for="prependedtext">Shop
+								<label class="col-md-4 control-label" for="prependedtext">Category
 									name</label>
 								<div class="col-md-5">
 									<div class="input-group">
-										<input id="shopname" name="shopname"
-											class="form-control" placeholder="shopname" type="text"
+										<input id="categoryname" name="categoryname"
+											class="form-control" placeholder="categoryname" type="text"
 											required autofocus>
 									</div>
 								</div>
@@ -202,15 +266,15 @@
 							//get data-id attribute of the clicked element
 							var id = $(e.relatedTarget).data('id');
 							var userId = $(e.relatedTarget).data('user-id');
-							var shopname = $(e.relatedTarget).data(
-									'shopname');
+							var categoryname = $(e.relatedTarget).data(
+									'categoryname');
 							//populate the textbox
 							$(e.currentTarget).find('input[name="id"]').val(id);
 							$(e.currentTarget).find('input[name="userId"]')
 									.val(userId);
 							$(e.currentTarget).find(
-									'input[name="shopname"]').val(
-									shopname);
+									'input[name="categoryname"]').val(
+									categoryname);
 						});
 	</script>
 
