@@ -53,12 +53,33 @@ public class PurchaseService {
 		return result;
 		
 	}
-	public boolean updatePurchase(Purchase purchase){
+	public boolean updatePurchase(long id, String purchasename, String categoryname, String shopname, float price, User user){
 		boolean result = false;
-		Purchase purchaseCopy = new Purchase(purchase);
+		User userCopy = new User(user);
+		Purchase purchase = new Purchase();
 		DAOFactory factory = DAOFactory.getDAOFactory();
+		CategoryDAO categoryDao = factory.getCategoryDAO();
+		ShopDAO shopDao = factory.getShopDAO();
+		List<Category> categoryList = categoryDao.getAll(userCopy.getId());
+		List<Shop> shopList = shopDao.getAll(userCopy.getId());	
+		for(Category c:categoryList){
+			if(c.getCategoryname().equals(categoryname)){
+				purchase.setCategory(c);
+			}
+		}
+		for(Shop s:shopList){
+			if(s.getShopname().equals(shopname)){
+				purchase.setShop(s);
+			}
+		}
+		purchase.setUser(user);
+		purchase.setPurchasename(purchasename);
+		purchase.setPrice(price);
+		purchase.setId(id);
+		
 		PurchaseDAO purchaseDao = factory.getPurchaseDAO();
-		result=purchaseDao.update(purchaseCopy);
+		
+		result=purchaseDao.update(purchase);
 		return result;
 		
 	}

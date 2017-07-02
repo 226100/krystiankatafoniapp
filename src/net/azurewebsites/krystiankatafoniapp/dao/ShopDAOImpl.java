@@ -24,6 +24,7 @@ public class ShopDAOImpl implements ShopDAO {
 	private static final String UPDATE_SHOP = "UPDATE shop SET shop_name=:shopname, user_id=:user_id WHERE shop_id=:shop_id;";
 	private static final String DELETE_SHOP = "DELETE FROM shop WHERE shop_id=:shopId ";
 	private static final String READ_ALL_SHOPS = "SELECT shop_id, shop_name, user_id FROM shop WHERE user_id=:user_id;";
+	private static final String SHOP_IS_USED = "SELECT COUNT(shop_id) FROM purchase WHERE shop_id=:shop_id";
 	NamedParameterJdbcTemplate template;
 
 	public ShopDAOImpl() {
@@ -72,9 +73,11 @@ public class ShopDAOImpl implements ShopDAO {
 
 		boolean result = false;
 		SqlParameterSource paramSource = new MapSqlParameterSource("shopId", key);
-		int update = template.update(DELETE_SHOP, paramSource);
-		if (update > 0) {
-			result = true;
+		if(!shopIsUsed(key)){
+			int update = template.update(DELETE_SHOP, paramSource);
+			if (update > 0) {
+				result = true;
+			}
 		}
 		return result;
 	}
@@ -86,7 +89,15 @@ public class ShopDAOImpl implements ShopDAO {
 		resultList = template.query(READ_ALL_SHOPS, paramSource, new ShopRowMapper());
 		return resultList;
 	}
-
+	public boolean shopIsUsed(long key){
+		boolean result=true;
+		SqlParameterSource paramSource = new MapSqlParameterSource("shop_id", key);
+		Number number = template.queryForObject(SHOP_IS_USED,paramSource,Integer.class);
+		if(number.intValue()>0){
+			result = true;
+		}else{result=false;}
+		return result;
+	}
 	private class ShopRowMapper implements RowMapper<Shop> {
 		@Override
 		public Shop mapRow(ResultSet resultSet, int rowNum) throws SQLException {

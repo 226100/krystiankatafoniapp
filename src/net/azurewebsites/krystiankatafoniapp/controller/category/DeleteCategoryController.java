@@ -20,11 +20,13 @@ public class DeleteCategoryController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		Long categoryId = Long.parseLong(request.getParameter("categoryId"));
 		CategoryService categoryService = new CategoryService();
-		categoryService.deleteCategory(categoryId);
+		boolean result=categoryService.deleteCategory(categoryId);
+
 		response.sendRedirect(request.getContextPath()+"/category");
+
 	}
 
 }

@@ -81,8 +81,9 @@
 
 
 												<button type="button" data-toggle="modal"
-													data-target="#update" data-id="${purchaseItem.id }"
-													data-user-id="${purchaseItem.user.id }"
+													data-target="#update"
+													data-id="${purchaseItem.id }"
+													data-purchasename="${purchaseItem.purchasename }"
 													data-categoryname="${purchaseItem.category.categoryname }"
 													data-shopname="${purchaseItem.shop.shopname }"
 													data-price="${purchaseItem.price }"
@@ -153,13 +154,25 @@
 									<div class="input-group">
 
 										<input id="purchasename" name="purchasename"
-											class="form-control" placeholder="Purchase name" type="text"
+											class="form-control" placeholder="Purchase name" type="text" pattern="^[a-zA-Z]+$"
 											required autofocus>
+											<div class="help-block">Only letters</div>
+     										
 											
 									</div>
 									</div>
 									</div>		
-					
+					      								<div class="form-group">		
+									<label class="col-md-4 control-label" for="price">Price</label>
+     								<div class="col-md-5">
+									<div class="input-group">
+      										<input id="price" name="price" pattern="[+]?([0-9]*[.])?[0-9]+" 
+											class="form-control" placeholder="Price" type="text"
+											required autofocus>
+											<div class="help-block">Float, positive number</div>
+     										 </div>
+									</div>
+									</div>
 									<div class="form-group">		
 									<label class="col-md-4 control-label" for="shop">Select shop</label>
      								<div class="col-md-5">
@@ -189,23 +202,13 @@
       								</div>
 									</div>
 									</div>
-      								<div class="form-group">		
-									<label class="col-md-4 control-label" for="price">Price</label>
-     								<div class="col-md-5">
-									<div class="input-group">
-      										<input id="price" name="price" pattern="[+]?([0-9]*[.])?[0-9]+" maxlength="8"
-											class="form-control" placeholder="Price" type="text"
-											required autofocus>
-											<div class="help-block">Float, positive number</div>
-     										 </div>
-									</div>
-									</div>
+
 																	<div class="col-md-12 col-md-offset-7">
 								<button type="submit" class="btn btn-primary ">
 									<i class="fa fa-fw fa-save"></i>Save
 								</button>
 								</div>
-									</div>
+									
 
 							
 							<!-- Button -->
@@ -228,28 +231,75 @@
 					<h2 class="modal-title" id="myModalLabel">Update name</h2>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" method="post" action="updateCategory">
-						<input type="hidden" id="id" name="id" type="text" >
-						<input type="hidden" id="userId" name="userId" type="text" >
+					<form data-toggle="validator" role="form" id="newpurchase" class="form-horizontal" method="post" action="updatePurchase">
 						<fieldset>
 							<!-- Form Name -->
 							<!-- Prepended text-->
 							<div class="form-group">
-								<label class="col-md-4 control-label" for="prependedtext">Category
+								<label class="col-md-4 control-label" for="prependedtext">Purchase
 									name</label>
 								<div class="col-md-5">
 									<div class="input-group">
-										<input id="categoryname" name="categoryname"
-											class="form-control" placeholder="categoryname" type="text"
+
+										<input id="purchasename" name="purchasename"
+											class="form-control" placeholder="Purchase name" type="text" pattern="^[a-zA-Z]+$"
 											required autofocus>
+											<div class="help-block">Only letters</div>
+     										
+											
 									</div>
-								</div>
+									</div>
+									</div>		
+					      								<div class="form-group">		
+									<label class="col-md-4 control-label" for="price">Price</label>
+     								<div class="col-md-5">
+									<div class="input-group">
+      										<input id="price" name="price" pattern="[+]?([0-9]*[.])?[0-9]+" 
+											class="form-control" placeholder="Price" type="text"
+											required autofocus>
+											<div class="help-block">Float, positive number</div>
+     										 </div>
+									</div>
+									</div>
+									<div class="form-group">		
+									<label class="col-md-4 control-label" for="shop">Select shop</label>
+     								<div class="col-md-5">
+									<div class="input-group">
+     								 <select class="form-control" id="shopname" name="shopname" required>
+       								<c:forEach var="shopItem"
+										items="${requestScope.shopList }">
+       								 <option>${shopItem.shopname }</option>
 
+        							</c:forEach>
+      								</select>
+      								</div>
+									</div>
+									</div>
+      								
+      								<div class="form-group">		
+									<label class="col-md-4 control-label" for="categoryname">Select category</label>
+     								<div class="col-md-5">
+									<div class="input-group">
+     								 <select class="form-control" id="categoryname" name = "categoryname" required>
+       								<c:forEach var="categoryItem"
+										items="${requestScope.categoryList }">
+       								 <option>${categoryItem.categoryname }</option>
 
-								<button type="submit" class="btn btn-primary">
+        							</c:forEach>
+      								</select>
+      								</div>
+									</div>
+									</div>
+									<input type="hidden" id="id" name="id" type="text">
+
+																	<div class="col-md-12 col-md-offset-7">
+								<button type="submit" class="btn btn-primary ">
 									<i class="fa fa-fw fa-save"></i>Save
 								</button>
-							</div>
+								</div>
+									
+
+							
 							<!-- Button -->
 						</fieldset>
 					</form>
@@ -265,16 +315,19 @@
 
 							//get data-id attribute of the clicked element
 							var id = $(e.relatedTarget).data('id');
-							var userId = $(e.relatedTarget).data('user-id');
+							var purchasename = $(e.relatedTarget).data('purchasename');
 							var categoryname = $(e.relatedTarget).data(
 									'categoryname');
+							var shopname = $(e.relatedTarget).data(
+							'shopname');
+							var price = $(e.relatedTarget).data(
+							'price');
 							//populate the textbox
 							$(e.currentTarget).find('input[name="id"]').val(id);
-							$(e.currentTarget).find('input[name="userId"]')
-									.val(userId);
-							$(e.currentTarget).find(
-									'input[name="categoryname"]').val(
-									categoryname);
+							$(e.currentTarget).find('input[name="purchasename"]').val(purchasename);
+							$(e.currentTarget).find('input[name="price"]').val(price);
+							$(e.currentTarget).find('select[name="categoryname"]').val(categoryname);
+							$(e.currentTarget).find('select[name="shopname"]').val(shopname);
 						});
 	</script>
 

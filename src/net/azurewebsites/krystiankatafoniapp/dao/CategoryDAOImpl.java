@@ -23,6 +23,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 	private static final String UPDATE_CATEGORY = "UPDATE category SET category_name=:categoryname, user_id=:user_id WHERE category_id=:category_id;";
 	private static final String DELETE_CATEGORY = "DELETE FROM category WHERE category_id=:categoryId ";
 	private static final String READ_ALL_CATEGORIES = "SELECT category_id, category_name, user_id FROM category WHERE user_id=:user_id;";
+	private static final String CATEGORY_IS_USED = "SELECT COUNT(category_id) FROM purchase WHERE category_id=:category_id";
 	NamedParameterJdbcTemplate template;
 
 	public CategoryDAOImpl() {
@@ -71,9 +72,11 @@ public class CategoryDAOImpl implements CategoryDAO {
 
 		boolean result = false;
 		SqlParameterSource paramSource = new MapSqlParameterSource("categoryId", key);
-		int update = template.update(DELETE_CATEGORY, paramSource);
-		if (update > 0) {
-			result = true;
+		if(!categoryIsUsed(key)){
+			int update = template.update(DELETE_CATEGORY, paramSource);
+			if (update > 0) {
+				result = true;
+			}
 		}
 		return result;
 	}
@@ -84,6 +87,16 @@ public class CategoryDAOImpl implements CategoryDAO {
 		SqlParameterSource paramSource = new MapSqlParameterSource("user_id", userId);
 		resultList = template.query(READ_ALL_CATEGORIES, paramSource, new CategoryRowMapper());
 		return resultList;
+	}
+	
+	public boolean categoryIsUsed(long key){
+		boolean result=true;
+		SqlParameterSource paramSource = new MapSqlParameterSource("category_id", key);
+		Number number = template.queryForObject(CATEGORY_IS_USED,paramSource,Integer.class);
+		if(number.intValue()>0){
+			result = true;
+		}else{result=false;}
+		return result;
 	}
 
 	private class CategoryRowMapper implements RowMapper<Category> {

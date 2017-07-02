@@ -23,7 +23,7 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 
 	private static final String CREATE_PURCHASE = "INSERT INTO purchase(purchase_name,user_id, category_id, shop_id, price) VALUES(:purchase_name,:user_id,:category_id,:shop_id,:price);";
 	private static final String READ_PURCHASE = "SELECT purchase_id, purchase_name, user_id FROM category WHERE purchase_id=:purchase_id;";
-	private static final String UPDATE_PURCHASE = "UPDATE purchase SET purchase_name=:purchasename, user_id=:user_id WHERE purchase_id=:purchase_id;";
+	private static final String UPDATE_PURCHASE = "UPDATE purchase SET purchase_name=:purchasename, category_id=:category_id, shop_id=:shop_id, price=:price, user_id=:user_id WHERE purchase_id=:purchase_id;";
 	private static final String DELETE_PURCHASE = "DELETE FROM purchase WHERE purchase_id=:purchaseId ";
 	private static final String READ_ALL_PURCHASES = "SELECT user.user_id, username, email, password, is_active,category.category_id, category_name, shop.shop_id, shop_name, purchase_id, purchase_name, price, date FROM purchase LEFT JOIN category ON purchase.category_id=category.category_id LEFT JOIN shop ON purchase.shop_id=shop.shop_id LEFT JOIN user ON purchase.user_id=user.user_id WHERE purchase.user_id=:user_id ORDER BY purchase.purchase_name;";
 	NamedParameterJdbcTemplate template;
@@ -67,6 +67,9 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("purchase_id", purchaseCopy.getId());
 		paramMap.put("purchasename", purchaseCopy.getPurchasename());
+		paramMap.put("category_id", purchaseCopy.getCategory().getId());
+		paramMap.put("shop_id", purchaseCopy.getShop().getId());
+		paramMap.put("price", purchaseCopy.getPrice());
 		paramMap.put("user_id", purchaseCopy.getUser().getId());
 		SqlParameterSource paramSource = new MapSqlParameterSource(paramMap);
 		int update = template.update(UPDATE_PURCHASE, paramSource);
