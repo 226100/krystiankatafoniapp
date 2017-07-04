@@ -1,11 +1,15 @@
 package net.azurewebsites.krystiankatafoniapp.service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 import net.azurewebsites.krystiankatafoniapp.dao.CategoryDAO;
 import net.azurewebsites.krystiankatafoniapp.dao.DAOFactory;
+import net.azurewebsites.krystiankatafoniapp.dao.CategoryDAO;
 import net.azurewebsites.krystiankatafoniapp.model.Category;
 import net.azurewebsites.krystiankatafoniapp.model.User;
+import net.azurewebsites.krystiankatafoniapp.wrapper.CategoryOccWrapper;
 
 public class CategoryService {
 	public void addCategory(String categoryname, User user){
@@ -41,5 +45,27 @@ public class CategoryService {
 		result=categoryDao.update(categoryCopy);
 		return result;
 		
+	}
+	public int amountOfAllCategories(Long userId){
+		DAOFactory factory = DAOFactory.getDAOFactory();
+		CategoryDAO categoryDao = factory.getCategoryDAO();
+		return categoryDao.amountOfAllCategories(userId);
+	}
+	public List<CategoryOccWrapper> getWrappedCategoriesWithPercent(long userId){
+		DAOFactory factory = DAOFactory.getDAOFactory();
+		CategoryDAO categoryDao = factory.getCategoryDAO();
+		List<CategoryOccWrapper> categoryWrapper =categoryDao.getWrappedCategories(userId);
+		int numberOfAllCategories=0;
+		for(CategoryOccWrapper item:categoryWrapper){
+			numberOfAllCategories=item.getOccNumber()+numberOfAllCategories;
+		}
+		
+		for(CategoryOccWrapper categoryItem:categoryWrapper){
+			float percent=(float)categoryItem.getOccNumber()/(float)numberOfAllCategories;
+			float truncatedPercent = BigDecimal.valueOf(percent*100)
+				    .setScale(2, RoundingMode.HALF_UP).floatValue();
+			categoryItem.setPercent(truncatedPercent);
+		};
+		return categoryWrapper;
 	}
 }

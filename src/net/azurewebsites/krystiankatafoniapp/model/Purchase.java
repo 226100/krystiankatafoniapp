@@ -23,6 +23,7 @@ public class Purchase {
 		this.category = purchase.category;
 		this.price = purchase.price;
 		this.timestamp = purchase.timestamp;
+		
 	}
 
 	public long getId() {

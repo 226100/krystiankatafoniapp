@@ -24,9 +24,11 @@ public class DeleteCategoryController extends HttpServlet {
 		Long categoryId = Long.parseLong(request.getParameter("categoryId"));
 		CategoryService categoryService = new CategoryService();
 		boolean result=categoryService.deleteCategory(categoryId);
-
-		response.sendRedirect(request.getContextPath()+"/category");
-
+		if(result==false){
+			request.getRequestDispatcher("WEB-INF/cannotDeleteCategory.jsp").forward(request,response);
+		}else{
+			response.sendRedirect(request.getContextPath()+"/category");
+		}
 	}
 
 }

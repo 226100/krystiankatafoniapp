@@ -8,11 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.azurewebsites.krystiankatafoniapp.model.Category;
+import net.azurewebsites.krystiankatafoniapp.model.User;
 import net.azurewebsites.krystiankatafoniapp.service.CategoryService;
 
-/**
- * Servlet implementation class UpdateCategoryController
- */
 @WebServlet("/updateCategory")
 public class UpdateCategoryController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -23,9 +21,9 @@ public class UpdateCategoryController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		Long categoryId = Long.parseLong(request.getParameter("id"));
-		Long userId = Long.parseLong(request.getParameter("userId"));
+		User user = (User)request.getSession().getAttribute("user");	
 		String categoryname = request.getParameter("categoryname");
-		Category category = new Category(categoryId, categoryname, userId);
+		Category category = new Category(categoryId, categoryname, user.getId());
 		CategoryService categoryService = new CategoryService();
 		categoryService.updateCategory(category);
 		response.sendRedirect(request.getContextPath()+"/category");

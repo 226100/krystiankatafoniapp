@@ -4,36 +4,37 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-   <meta charset="utf-8">
-    <title>Shopping List</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
-	<link href="${pageContext.request.contextPath}/Resources/css/stylesLogin.css" type="text/css" rel="stylesheet">
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-	</head>
+<head>
+<meta charset="utf-8">
+<title>Shopping List</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<!-- Css styles for login page, index.jsp  -->
+<link href="${pageContext.request.contextPath}/Resources/css/stylesLogin.css" type="text/css" rel="stylesheet">
+</head>
 	
-  <body>
-  <c:if test="${not empty sessionScope.user}">
-  	<c:redirect url="login"/>
-  </c:if>
+<body>
+	<!-- If user is in session redirect to login servlet -->
+	<c:if test="${not empty sessionScope.user}">
+  		<c:redirect url="login"/>
+  	</c:if>
 	<div class="container">
 		<div id="login-box">
 			<div class="logo">
 				<img src="${pageContext.request.contextPath}/Resources/files/logo.png" class="img img-responsive center-block"/>
 				<h1 class="logo-caption"><span class="tweak">S</span>HOPPING</h1>
 				<h1 class="logo-caption"><span class="tweak">L</span>IST</h1>
-			</div><!-- /.logo -->
+			</div><!-- logo -->
 			<form class="controls" action="login" method="get">
 				<button type="submit" class="btn btn-default btn-block btn-login">Sign In</button>	
-			</form><!-- /.controls -->
+			</form><!-- controls -->
 			<form action="register" method="get">	
 				<button type="submit" class="btn btn-default btn-block btn-register">Register</button>
-			</form>
-			
-		</div><!-- /#login-box -->
-	</div><!-- /.container -->
+			</form>	<!--  -->
+		</div><!-- login-box -->
+	</div><!-- container -->
 	<div id="particles-js"></div>
 	<script src="${pageContext.request.contextPath}/Resources/js/backgroundShape.js"></script>
   </body>

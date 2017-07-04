@@ -9,16 +9,22 @@ import net.azurewebsites.krystiankatafoniapp.dao.UserDAO;
 import net.azurewebsites.krystiankatafoniapp.model.User;
 
 public class UserService {
-	public void addUser(String username, String email, String password){
-		User user = new User();
-		user.setUsername(username);
-		String md5Pass=encryptPassword(password);
-		user.setEmail(email);
-		user.setPassword(md5Pass);
-		user.setActive(true);
+	public boolean addUser(String username, String email, String password){
+		boolean result = false;
+		User user = user= new User();
 		DAOFactory factory = DAOFactory.getDAOFactory();
 		UserDAO userDao = factory.getUserDAO();
-		userDao.create(user);
+		if(!userDao.isUserExist(username)){
+			
+			user.setUsername(username);
+			String md5Pass=encryptPassword(password);
+			user.setEmail(email);
+			user.setPassword(md5Pass);
+			user.setActive(true);
+			userDao.create(user);
+			result=true;
+		}
+		return result;
 	}
 	private String encryptPassword(String password) {
         MessageDigest digest = null;

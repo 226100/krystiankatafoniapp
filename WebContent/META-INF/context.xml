@@ -7,7 +7,7 @@
         initialSize="10"
         maxTotal="100"
         maxIdle="30"
-    username="erotomat@myshoppingkk"
+ 		username="erotomat@myshoppingkk"
         password="new2.haslO"
         driverClassName="com.mysql.jdbc.Driver"
         url="jdbc:mysql://myshoppingkk.mysql.database.azure.com:3306/myshopping?verifyServerCertificate=true&amp;useSSL=true&amp;requireSSL=false" />

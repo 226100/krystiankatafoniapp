@@ -8,9 +8,9 @@
 <head>
 <meta charset="utf-8">
 <title>Shopping List - Shop List</title>
+
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/Resources/js/custom.js"></script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link
 	href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
@@ -24,6 +24,8 @@
 <link
 	href="${pageContext.request.contextPath}/Resources/css/stylesCategory.css"
 	type="text/css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 </head>
 <body>
 	<link
@@ -36,7 +38,7 @@
 	<jsp:include page="Fragments/navbar.jspf" />
 	<div class="vertical-center back">
 		<div class="container">
-			<div class="row centered-form center-block  ">
+			<div class="row centered-form center-block animated fadeInUp  ">
 
 
 				<div class="col-md-8 col-md-offset-3  ">
@@ -125,7 +127,7 @@
 					<h2 class="modal-title" id="myModalLabel">Add Shop</h2>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" method="post" action="addShop">
+					<form data-toggle="validator" role="form" id="newshop" class="form-horizontal" method="post" action="addShop">
 						<fieldset>
 
 							<div class="form-group">
@@ -134,23 +136,26 @@
 								<div class="col-md-5">
 									<div class="input-group">
 
-										<input id="prependedtext" name="shopname"
-											class="form-control" placeholder="Your shop" type="text"
+										<input id="shopname" name="shopname"
+											class="form-control" placeholder="Your shop" type="text" pattern="^[a-zA-Z]+$"
 											required autofocus>
+											<div class="help-block">Only letters, one word</div>
 									</div>
 								</div>
-
-
+								</div>
+								<div class="col-md-12 col-md-offset-7">
 								<button type="submit" class="btn btn-primary">
 									<i class="fa fa-fw fa-save"></i>Save
 								</button>
-							</div>
+								</div>
+							
 							<!-- Button -->
 						</fieldset>
 					</form>
-				</div>
+				
 			</div>
 		</div>
+	</div>
 	</div>
 
 
@@ -164,9 +169,8 @@
 					<h2 class="modal-title" id="myModalLabel">Update name</h2>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" method="post" action="updateShop">
-						<input type="hidden" id="id" name="id" type="text"> <input
-							type="hidden" id="userId" name="userId" type="text">
+					<form data-toggle="validator" role="form" id="updateshop" class="form-horizontal" method="post" action="updateShop">
+
 						<fieldset>
 							<!-- Form Name -->
 							<!-- Prepended text-->
@@ -176,16 +180,19 @@
 								<div class="col-md-5">
 									<div class="input-group">
 										<input id="shopname" name="shopname"
-											class="form-control" placeholder="shopname" type="text"
+											class="form-control" placeholder="shopname" type="text" pattern="^[a-zA-Z]+$"
 											required autofocus>
+											<div class="help-block">Only letters, one word</div>
 									</div>
 								</div>
-
-
+								</div>
+						<input type="hidden" id="id" name="id" type="text"> 
+						<input type="hidden" id="userId" name="userId" type="text">
+								<div class="col-md-12 col-md-offset-7">
 								<button type="submit" class="btn btn-primary">
 									<i class="fa fa-fw fa-save"></i>Save
 								</button>
-							</div>
+								</div>
 							<!-- Button -->
 						</fieldset>
 					</form>

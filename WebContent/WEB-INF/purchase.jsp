@@ -10,8 +10,7 @@
 <title>Shopping List - Category List</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/Resources/js/custom.js"></script>
+
 	
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link
@@ -27,6 +26,7 @@
 	href="${pageContext.request.contextPath}/Resources/css/stylesCategory.css"
 	type="text/css" rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 </head>
 <body>
 	<link
@@ -39,7 +39,7 @@
 	<jsp:include page="Fragments/navbar.jspf" />
 	<div class="vertical-center back">
 		<div class="container">
-			<div class="row centered-form center-block  ">
+			<div class="row centered-form center-block animated fadeInUp  ">
 
 
 				<div class="col-md-8 col-md-offset-3  ">
@@ -48,7 +48,7 @@
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col col-xs-6">
-									 <i class="fa fa-cubes"></i><h3 class="panel-title" style="display:inline-block;">&nbsp;&nbsp;&nbsp;All Purchases</h3>
+									 <i class="fa fa-shopping-cart"></i><h3 class="panel-title" style="display:inline-block;">&nbsp;&nbsp;&nbsp;All Purchases</h3>
 								</div>
 								<div class="col col-xs-6 text-right">
 									<button type="button" data-toggle="modal" data-target="#new"
@@ -156,7 +156,7 @@
 										<input id="purchasename" name="purchasename"
 											class="form-control" placeholder="Purchase name" type="text" pattern="^[a-zA-Z]+$"
 											required autofocus>
-											<div class="help-block">Only letters</div>
+											<div class="help-block">Only letters, one word</div>
      										
 											
 									</div>
@@ -231,7 +231,7 @@
 					<h2 class="modal-title" id="myModalLabel">Update name</h2>
 				</div>
 				<div class="modal-body">
-					<form data-toggle="validator" role="form" id="newpurchase" class="form-horizontal" method="post" action="updatePurchase">
+					<form data-toggle="validator" role="form" id="updatepurchase" class="form-horizontal" method="post" action="updatePurchase">
 						<fieldset>
 							<!-- Form Name -->
 							<!-- Prepended text-->
@@ -244,7 +244,7 @@
 										<input id="purchasename" name="purchasename"
 											class="form-control" placeholder="Purchase name" type="text" pattern="^[a-zA-Z]+$"
 											required autofocus>
-											<div class="help-block">Only letters</div>
+											<div class="help-block">Only letters, one word</div>
      										
 											
 									</div>

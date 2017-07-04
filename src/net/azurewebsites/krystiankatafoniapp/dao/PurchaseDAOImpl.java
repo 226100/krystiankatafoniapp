@@ -26,7 +26,10 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 	private static final String UPDATE_PURCHASE = "UPDATE purchase SET purchase_name=:purchasename, category_id=:category_id, shop_id=:shop_id, price=:price, user_id=:user_id WHERE purchase_id=:purchase_id;";
 	private static final String DELETE_PURCHASE = "DELETE FROM purchase WHERE purchase_id=:purchaseId ";
 	private static final String READ_ALL_PURCHASES = "SELECT user.user_id, username, email, password, is_active,category.category_id, category_name, shop.shop_id, shop_name, purchase_id, purchase_name, price, date FROM purchase LEFT JOIN category ON purchase.category_id=category.category_id LEFT JOIN shop ON purchase.shop_id=shop.shop_id LEFT JOIN user ON purchase.user_id=user.user_id WHERE purchase.user_id=:user_id ORDER BY purchase.purchase_name;";
+	private static final String AMOUNT_OF_ALL_PURCHASES = "SELECT COUNT(purchase_id) FROM purchase WHERE user_id=:user_id";
+	private static final String SUM_OF_PRICES = "SELECT SUM(price) FROM purchase WHERE user_id=:user_id";
 	NamedParameterJdbcTemplate template;
+	
 
 	public PurchaseDAOImpl() {
 		template = new NamedParameterJdbcTemplate(ConnectionProvider.getDataSource());
@@ -98,6 +101,19 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 		resultList = template.query(READ_ALL_PURCHASES, paramSource, new PurchaseRowMapper());
 		return resultList;
 	}
+	@Override
+	public Integer amountOfAllPurchases(Long userId){
+		Integer result = null;
+		SqlParameterSource paramSource = new MapSqlParameterSource("user_id", userId);
+		Number number = template.queryForObject(AMOUNT_OF_ALL_PURCHASES,paramSource,Integer.class);
+		if(number==null){
+			result=0;
+		}else{
+			result=number.intValue();
+		}
+		return result;
+		
+	}
 
 	private class PurchaseRowMapper implements RowMapper<Purchase> {
 		@Override
@@ -126,6 +142,20 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 			purchase.setTimestamp(resultSet.getTimestamp("date"));
 			return purchase;
 		}
+	}
+
+	@Override
+	public Float sumOfPrices(Long userId) {
+		Float result = null;
+		SqlParameterSource paramSource = new MapSqlParameterSource("user_id", userId);
+		Number number = template.queryForObject(SUM_OF_PRICES,paramSource,Float.class);
+		if(number==null){
+			result=0.0F;
+		}else{
+			result=number.floatValue();
+		}
+		return result;
+		
 	}
 
 }

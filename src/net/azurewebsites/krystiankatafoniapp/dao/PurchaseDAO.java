@@ -6,5 +6,6 @@ import net.azurewebsites.krystiankatafoniapp.model.Purchase;
 
 public interface PurchaseDAO extends GenericDAO<Purchase,Long> {
 	List<Purchase> getAll(Long userId);
-	
+	Integer amountOfAllPurchases(Long userId);
+	Float sumOfPrices(Long userId);
 }

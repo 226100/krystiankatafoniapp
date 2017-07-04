@@ -1,6 +1,7 @@
 package net.azurewebsites.krystiankatafoniapp.dao;
 
 import java.sql.ResultSet;
+import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class UserDAOImpl implements UserDAO {
 			+ "VALUES (:username, :email, :password, :active);";
 	private static final String READ_USER = "SELECT user_id, username, email, password, is_active FROM user WHERE user_id=:id";
 	private static final String READ_USER_BY_USERNAME = "SELECT user_id, username, email, password, is_active FROM user WHERE username=:username";
+	private static final String USER_EXIST = "SELECT COUNT(username) FROM user WHERE username=:username";
 	private NamedParameterJdbcTemplate template;
 	
 	public UserDAOImpl(){
@@ -70,12 +72,23 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public User getUserByUsername(String username) {
-		User resultUser = new User();
+	public User getUserByUsername(String username)  {
+		User resultUser = null;
 		SqlParameterSource paramSource = new MapSqlParameterSource("username", username);
 		resultUser=template.queryForObject(READ_USER_BY_USERNAME, paramSource, new UserRowMapper());
 		return resultUser;
 	}
+	@Override
+	public boolean isUserExist(String username) {
+		boolean result=true;
+		SqlParameterSource paramSource = new MapSqlParameterSource("username", username);
+		Number number = template.queryForObject(USER_EXIST,paramSource,Integer.class);
+		if(number.intValue()>0){
+			result = true;
+		}else{result=false;}
+		return result;
+	}
+
 	private class UserRowMapper implements RowMapper<User>{
 
 		@Override

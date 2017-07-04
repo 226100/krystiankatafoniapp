@@ -83,5 +83,17 @@ public class PurchaseService {
 		return result;
 		
 	}
-
+	public int amountOfAllPurchases(Long userId){
+		DAOFactory factory = DAOFactory.getDAOFactory();
+		PurchaseDAO purchaseDao = factory.getPurchaseDAO();
+		
+		return purchaseDao.amountOfAllPurchases(userId);
+	}
+	public Float sumOfPrices(Long userId){
+		DAOFactory factory = DAOFactory.getDAOFactory();
+		PurchaseDAO purchaseDao = factory.getPurchaseDAO();
+		Float num = purchaseDao.sumOfPrices(userId);
+		return num; 
+	
+	}
 }

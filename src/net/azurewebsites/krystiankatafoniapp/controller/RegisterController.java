@@ -22,7 +22,10 @@ public class RegisterController extends HttpServlet {
 		String email = request.getParameter("inputEmail");
 		String password = request.getParameter("inputPassword");
 		UserService userService = new UserService();
-		userService.addUser(username, email, password);
+		boolean result=userService.addUser(username, email, password);
+		if(!result){
+			request.getRequestDispatcher("WEB-INF/registerError.jsp").forward(request,response);
+		}
 		response.sendRedirect(request.getContextPath()+"/");
 	}
 

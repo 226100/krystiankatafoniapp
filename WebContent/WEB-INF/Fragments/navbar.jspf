@@ -28,7 +28,7 @@
                   <i class="fa fa-home"></i> Shops
                   </li>
                   
-				  <li onclick="location.href = 'login';">
+				  <li onclick="location.href = 'statistics';">
                   <i class="fa fa-area-chart"></i> Statistics
                   
                   </li>

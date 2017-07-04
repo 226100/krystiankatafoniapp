@@ -1,11 +1,14 @@
 package net.azurewebsites.krystiankatafoniapp.service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 import net.azurewebsites.krystiankatafoniapp.dao.ShopDAO;
 import net.azurewebsites.krystiankatafoniapp.dao.DAOFactory;
 import net.azurewebsites.krystiankatafoniapp.model.Shop;
 import net.azurewebsites.krystiankatafoniapp.model.User;
+import net.azurewebsites.krystiankatafoniapp.wrapper.ShopOccWrapper;
 
 public class ShopService {
 	public void addShop(String shopname, User user){
@@ -41,5 +44,27 @@ public class ShopService {
 		result=shopDao.update(shopCopy);
 		return result;
 		
+	}
+	public int amountOfAllShops(Long userId){
+		DAOFactory factory = DAOFactory.getDAOFactory();
+		ShopDAO shopDao = factory.getShopDAO();
+		return shopDao.amountOfAllShops(userId);
+	}
+	public List<ShopOccWrapper> getWrappedShopsWithPercent(long userId){
+		DAOFactory factory = DAOFactory.getDAOFactory();
+		ShopDAO shopDao = factory.getShopDAO();
+		List<ShopOccWrapper> shopWrapper =shopDao.getWrappedShops(userId);
+		int numberOfAllShops=0;
+		for(ShopOccWrapper item:shopWrapper){
+			numberOfAllShops=item.getOccNumber()+numberOfAllShops;
+		}
+		
+		for(ShopOccWrapper shopItem:shopWrapper){
+			float percent=(float)shopItem.getOccNumber()/(float)numberOfAllShops;
+			float truncatedPercent = BigDecimal.valueOf(percent*100)
+				    .setScale(2, RoundingMode.HALF_UP).floatValue();
+			shopItem.setPercent(truncatedPercent);
+		};
+		return shopWrapper;
 	}
 }

@@ -2,7 +2,10 @@ package net.azurewebsites.krystiankatafoniapp.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +19,7 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import net.azurewebsites.krystiankatafoniapp.model.Shop;
 import net.azurewebsites.krystiankatafoniapp.util.ConnectionProvider;
+import net.azurewebsites.krystiankatafoniapp.wrapper.ShopOccWrapper;
 
 public class ShopDAOImpl implements ShopDAO {
 
@@ -25,6 +29,8 @@ public class ShopDAOImpl implements ShopDAO {
 	private static final String DELETE_SHOP = "DELETE FROM shop WHERE shop_id=:shopId ";
 	private static final String READ_ALL_SHOPS = "SELECT shop_id, shop_name, user_id FROM shop WHERE user_id=:user_id;";
 	private static final String SHOP_IS_USED = "SELECT COUNT(shop_id) FROM purchase WHERE shop_id=:shop_id";
+	private static final String AMOUNT_OF_ALL_SHOPS = "SELECT COUNT(shop_id) FROM shop WHERE user_id=:user_id";
+	private static final String READ_ALL_SHOPS_FROM_PURCHASES = "SELECT user.user_id, shop.shop_id, shop_name FROM purchase LEFT JOIN shop ON purchase.shop_id=shop.shop_id LEFT JOIN user ON purchase.user_id=user.user_id WHERE purchase.user_id=:user_id;";
 	NamedParameterJdbcTemplate template;
 
 	public ShopDAOImpl() {
@@ -73,7 +79,7 @@ public class ShopDAOImpl implements ShopDAO {
 
 		boolean result = false;
 		SqlParameterSource paramSource = new MapSqlParameterSource("shopId", key);
-		if(!shopIsUsed(key)){
+		if (!shopIsUsed(key)) {
 			int update = template.update(DELETE_SHOP, paramSource);
 			if (update > 0) {
 				result = true;
@@ -89,15 +95,57 @@ public class ShopDAOImpl implements ShopDAO {
 		resultList = template.query(READ_ALL_SHOPS, paramSource, new ShopRowMapper());
 		return resultList;
 	}
-	public boolean shopIsUsed(long key){
-		boolean result=true;
-		SqlParameterSource paramSource = new MapSqlParameterSource("shop_id", key);
-		Number number = template.queryForObject(SHOP_IS_USED,paramSource,Integer.class);
-		if(number.intValue()>0){
-			result = true;
-		}else{result=false;}
+
+	@Override
+	public int amountOfAllShops(Long userId) {
+		Integer result = null;
+		SqlParameterSource paramSource = new MapSqlParameterSource("user_id", userId);
+		Number number = template.queryForObject(AMOUNT_OF_ALL_SHOPS, paramSource, Integer.class);
+		if (number == null) {
+			result = 0;
+		} else {
+			result = number.intValue();
+		}
 		return result;
 	}
+
+	public boolean shopIsUsed(long key) {
+		boolean result = true;
+		SqlParameterSource paramSource = new MapSqlParameterSource("shop_id", key);
+		Number number = template.queryForObject(SHOP_IS_USED, paramSource, Integer.class);
+		if (number.intValue() > 0) {
+			result = true;
+		} else {
+			result = false;
+		}
+		return result;
+	}
+
+	public List<Shop> getAllShopsFromPurchases(long userId) {
+		List<Shop> resultList = null;
+		SqlParameterSource paramSource = new MapSqlParameterSource("user_id", userId);
+		resultList = template.query(READ_ALL_SHOPS_FROM_PURCHASES, paramSource, new ShopRowMapper());
+		return resultList;
+	}
+	@Override
+	public List<ShopOccWrapper> getWrappedShops(long userId) {
+		List<Shop> shopList = new ArrayList<>();
+		List<ShopOccWrapper> occList = new ArrayList<>();
+		shopList = getAllShopsFromPurchases(userId);
+		List<Shop> copyList = new ArrayList<>(shopList);
+
+		shopList.stream().forEach(shopItem -> {
+
+			int freq = Collections.frequency(copyList, shopItem);
+			ShopOccWrapper wrapper = new ShopOccWrapper(shopItem, freq);
+			if (!occList.contains(wrapper)) {
+				occList.add(wrapper);
+			}
+		});
+
+		return occList;
+	}
+
 	private class ShopRowMapper implements RowMapper<Shop> {
 		@Override
 		public Shop mapRow(ResultSet resultSet, int rowNum) throws SQLException {

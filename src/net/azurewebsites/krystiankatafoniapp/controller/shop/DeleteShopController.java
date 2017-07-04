@@ -21,8 +21,12 @@ public class DeleteShopController extends HttpServlet {
 
 		Long shopId = Long.parseLong(request.getParameter("shopId"));
 		ShopService shopService = new ShopService();
-		shopService.deleteShop(shopId);
-		response.sendRedirect(request.getContextPath()+"/shop");
+		boolean result =shopService.deleteShop(shopId);
+		if(result==false){
+			request.getRequestDispatcher("WEB-INF/cannotDeleteShop.jsp").forward(request,response);
+		}else{
+			response.sendRedirect(request.getContextPath()+"/shop");
+		}
 	}
 
 }
