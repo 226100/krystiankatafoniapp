@@ -7,11 +7,10 @@
         initialSize="10"
         maxTotal="100"
         maxIdle="30"
- 		username="erotomat@myshoppingkk"
-        password="new2.haslO"
+   		username="root"
+        password="root"
         driverClassName="com.mysql.jdbc.Driver"
-        url="jdbc:mysql://myshoppingkk.mysql.database.azure.com:3306/myshopping?verifyServerCertificate=true&amp;useSSL=true&amp;requireSSL=false" />
- 
+        url="jdbc:mysql://localhost:3306/myshopping" />
  
     <Realm className="org.apache.catalina.realm.DataSourceRealm"
         dataSourceName="jdbc/myshopping"

@@ -24,16 +24,17 @@
 </head>
 <body>
 	<!-- Navigation on left side -->
-	<jsp:include page="Fragments/navbar.jspf" />	
+	<jsp:include page="Fragments/navbar.jspf" />
+	<!-- Central container -->		
 	<div class="vertical-center back">
-		<div class="container">
+		<div class="container middle-container">
 			<div class="row centered-form center-block animated tada  ">
 				<div class="col-md-8 col-md-offset-3  ">
 					<div id="pie-chart-widget " class="panel">
             			<div class="panel-heading text-center ">
                				<!-- Text message for user -->
                				<h5 class="text-uppercase  text-danger "><strong>YOU CANNOT DELETE THIS SHOP BECAUSE IT'S ALREADY USED IN PURCHASE</strong></h5>
-            			</div><!-- panel-heading text-center -->
+            			</div><!-- Panel-heading text-center -->
                		</div><!-- pie-chart-widget -->
             	</div><!-- col-md-8-offset-3 -->
          	</div><!-- row centered-form center-block animated tada -->	

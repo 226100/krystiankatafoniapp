@@ -51,11 +51,16 @@ used to vertically center elements, may need modification if you're not using de
   line-height: 34px;
 }
 .vertical-center {
-  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
-  min-height: 100vh; /* These two lines are counted as one :-)       */
-  display: flex;
-  align-items: center;
+   display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
 }
+.middle-container{
+	display: table-cell;
+    vertical-align: middle;
+}
+
 /*-- BS3 Modified Classes --*/
 .panel {
     border: none;

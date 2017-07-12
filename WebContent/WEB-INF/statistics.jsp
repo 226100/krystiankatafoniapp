@@ -5,6 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,7 +21,6 @@
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 <!--Css styles for statistic jsp page  -->
 <link href="${pageContext.request.contextPath}/Resources/css/stylesInterface.css" type="text/css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/Resources/css/stylesMainPage.css" type="text/css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/Resources/css/stylesStatistic.css" type="text/css" rel="stylesheet">
 	    
 <!-- Script which is responsible for showing charts in jsp page, first chart is shopChart and second is categoryChart  -->
@@ -99,9 +99,10 @@ window.onload = function () {
 	<jsp:include page="Fragments/navbar.jspf" />
 	<!--Center container for charts -->		
 	<div class="vertical-center back">
-		<div class="container">
+		<div class="container middle-container">
+			<!-- Animation for block -->
 			<div class="row centered-form center-block animated rollIn  ">
-				<div class="col-sm-2 col-md-10 col-md-offset-2  ">
+				<div class="col-sm-2 col-md-8 col-md-offset-3  ">
 					<div id="pie-chart-widget" class="panel">
             			<div class="panel-heading text-center ">
                				<h5 class="text-uppercase animated zoomInDown "><strong>GENERAL STATISTICS</strong></h5>
@@ -109,9 +110,9 @@ window.onload = function () {
             			<div class="panel-footer">
                				<div class="list-block">
                					<!-- Pie chart for shops --> 
-                 				<div id="shops" style="height: 300px; width: 50%;display:inline-block;"></div> 
+                 				<div id="shops" style="height: 300px; width: 50%;display:inline;float:left;"></div> 
                					<!-- Pie chart for categories -->
-                			 	<div id="categories" style="height: 300px; width: 50%;display:inline-block;"></div> 
+                			 	<div id="categories" style="height: 300px; width: 50%;display:inline;float:left;"></div> 
 
                				</div><!--list-block  -->
                			</div><!--panel-footer  -->

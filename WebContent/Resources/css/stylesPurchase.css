@@ -61,8 +61,8 @@ used to vertically center elements, may need modification if you're not using de
     vertical-align: middle;
 }
 .modal-change {
-top:34%;
-right:-1%;
+top:25%;
+right:0%;
 outline: none;
 }
 .special-form{

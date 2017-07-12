@@ -27,7 +27,7 @@
 	<jsp:include page="Fragments/navbar.jspf" />
 	<!-- Central container -->	
 	<div class="vertical-center back">
-		<div class="container">
+		<div class="container middle-container">
 			<div class="row centered-form center-block animated tada  ">
 				<div class="col-md-8 col-md-offset-3  ">
 					<div id="pie-chart-widget " class="panel">

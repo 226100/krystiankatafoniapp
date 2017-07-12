@@ -23,14 +23,15 @@
 <!-- Js script for copy data to modal window(Update window) -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/Resources/js/categoryUpdateScript.js"></script>
 </head>
+
 <body>
 	<!-- Navigation on the right side -->
 	<jsp:include page="Fragments/navbar.jspf" />
-	<!-- Central main containter -->
+	<!-- Central main container -->
 	<div class="vertical-center back">
-		<div class="container">
+		<div class="container middle-container">
 			<div class="row centered-form center-block animated fadeInUp  ">
-				<div class="col-md-8 col-md-offset-3  ">
+				<div class="col-md-4 col-md-offset-4  ">
 					<div class="panel panel-default panel-table">
 						<div class="panel-heading">
 							<div class="row">
@@ -65,7 +66,7 @@
 											<!-- Increment of counter, because next row in table is made -->
 											<%counter++;%>
 											<td align="center">
-												<!-- Button "update" for update one category, data is send to modal throught javascript -->
+												<!-- Button "update" for update one category, data is send to modal through javascript -->
 												<button type="button" data-toggle="modal"
 												data-target="#update" data-id="${categoryItem.id }"
 												data-user-id="${categoryItem.userId }"
@@ -84,7 +85,7 @@
 													class="btn btn-danger">
 														<em class="fa fa-trash"></em><!-- Trash glyphicon -->
 													</a><!-- btn btn-danger -->
-												</form>
+												</form><!-- special-form -->
 											</td><!-- End of first column -->
 											<td class="hidden-xs"><%=counter%></td><!-- End of second column(counter for each row) -->
 											<td><c:out value="${categoryItem.categoryname }" /></td><!-- End of third column(categoryname) -->
@@ -185,10 +186,12 @@
 									</div><!-- input-group -->
 								</div><!-- col-md-5 -->
 							</div><!-- form-group -->
-							<!-- Submit button for form -->
-							<button type="submit" class="btn btn-primary">
+							<div class="col-md-12 col-md-offset-7">
+								<!-- Submit button for form -->
+								<button type="submit" class="btn btn-primary">
 								<i class="fa fa-fw fa-save"></i>Save
-							</button>
+								</button>
+							</div>
 						</fieldset>
 					</form><!-- form-horizontal, End of form -->
 				</div><!-- modal-body -->

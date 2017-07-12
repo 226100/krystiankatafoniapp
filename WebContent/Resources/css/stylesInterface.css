@@ -29,7 +29,7 @@
 
 }
 .nav-side-menu .brand:hover {
-font-size: 28px;
+font-size: 27px;
 }
 .nav-side-menu .toggle-btn {
   display: none;
@@ -39,7 +39,7 @@ font-size: 28px;
   list-style: none;
   padding: 0px;
   margin: 0px;
-  line-height: 95px;
+  line-height: 92px;
   cursor: pointer;
   /*    
     .collapsed{

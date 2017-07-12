@@ -20,9 +20,11 @@
 	<c:if test="${not empty sessionScope.user}">
   		<c:redirect url="login"/>
   	</c:if>
+  	<!-- Main container -->
 	<div class="container">
 		<div id="login-box">
 			<div class="logo">
+				<!-- Main logo -->
 				<img src="${pageContext.request.contextPath}/Resources/files/logo.png" class="img img-responsive center-block"/>
 				<h1 class="logo-caption"><span class="tweak">S</span>HOPPING</h1>
 				<h1 class="logo-caption"><span class="tweak">L</span>IST</h1>

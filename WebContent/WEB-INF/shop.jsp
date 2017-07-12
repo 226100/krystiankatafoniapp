@@ -22,7 +22,7 @@
 	href="${pageContext.request.contextPath}/Resources/css/stylesInterface.css"
 	type="text/css" rel="stylesheet">
 <link
-	href="${pageContext.request.contextPath}/Resources/css/stylesCategory.css"
+	href="${pageContext.request.contextPath}/Resources/css/stylesShop.css"
 	type="text/css" rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
@@ -37,12 +37,9 @@
 
 	<jsp:include page="Fragments/navbar.jspf" />
 	<div class="vertical-center back">
-		<div class="container">
+		<div class="container middle-container">
 			<div class="row centered-form center-block animated fadeInUp  ">
-
-
-				<div class="col-md-8 col-md-offset-3  ">
-
+				<div class="col-md-4 col-md-offset-4  ">
 					<div class="panel panel-default panel-table">
 						<div class="panel-heading">
 							<div class="row">
