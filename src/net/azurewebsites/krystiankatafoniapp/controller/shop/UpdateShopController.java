@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.azurewebsites.krystiankatafoniapp.model.Shop;
+import net.azurewebsites.krystiankatafoniapp.model.User;
 import net.azurewebsites.krystiankatafoniapp.service.ShopService;
 
 /**
@@ -24,9 +25,9 @@ public class UpdateShopController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		Long shopId = Long.parseLong(request.getParameter("id"));
-		Long userId = Long.parseLong(request.getParameter("userId"));
+		User user = (User)request.getSession().getAttribute("user");	
 		String shopname = request.getParameter("shopname");
-		Shop shop = new Shop(shopId, shopname, userId);
+		Shop shop = new Shop(shopId, shopname, user.getId());
 		ShopService shopService = new ShopService();
 		shopService.updateShop(shop);
 		response.sendRedirect(request.getContextPath()+"/shop");

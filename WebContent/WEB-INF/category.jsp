@@ -191,7 +191,7 @@
 								<button type="submit" class="btn btn-primary">
 								<i class="fa fa-fw fa-save"></i>Save
 								</button>
-							</div>
+							</div><!-- col-md-12 col-md-offset-7 -->
 						</fieldset>
 					</form><!-- form-horizontal, End of form -->
 				</div><!-- modal-body -->
