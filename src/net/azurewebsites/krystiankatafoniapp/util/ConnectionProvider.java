@@ -2,44 +2,54 @@ package net.azurewebsites.krystiankatafoniapp.util;
 
 import java.sql.Connection;
 import java.sql.SQLException;
- 
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+/**
+ * This class is a provider for database connection.
+ * ConnectionProvider class allow to get data
+ * from file context.xml, this data is need for
+ * connection with database
+ * 
+ * @author Krystian Katafoni
+ * @version 1.0
+ * @since 2017-06-30
+ */
 
 public class ConnectionProvider {
 	
-	private static DataSource dataSourcee;
-	private static DriverManagerDataSource dataSource;
+	/*Data source object which will be return in getDataSource() method*/
+	private static DataSource dataSource;
+	
+	/**
+	 * 
+	 * @return Data Source from context.xml file
+	 * @throws SQLException
+	 */
 	public static Connection getConnection() throws SQLException{
 		return getDataSource().getConnection();
 	}
+	/**
+	 * If dataSource is null create new context
+	 * and save this context to dataSource object
+	 * @return dataSource object with data for connection from context.xml file
+	 */
 	public static DataSource getDataSource(){
-		if(dataSourcee == null){
+		if(dataSource == null){
 			try{
 				Context initialContext = new InitialContext();
                 Context envContext = (Context) initialContext
                         .lookup("java:comp/env");
                 DataSource ds = (DataSource) envContext.lookup("jdbc/myshopping");
-                dataSourcee = ds;
+                dataSource = ds;
             } catch (NamingException e) {
                 e.printStackTrace();
             }
-			/*dataSource = new DriverManagerDataSource();
-			dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-			dataSource.setUrl("jdbc:mysql://myshoppingkk.mysql.database.azure.com:3306/myshopping?verifyServerCertificate=true&useSSL=true&requireSSL=false");
-			dataSource.setUsername("erotomat@myshoppingkk");
-			dataSource.setPassword("new2.haslO");*/
-			
-/*			dataSource = new DriverManagerDataSource();
-			dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-			dataSource.setUrl("jdbc:mysql://localhost:3306/myshopping");
-			dataSource.setUsername("root");
-			dataSource.setPassword("root");*/
 		}
-		return dataSourcee;
+		return dataSource;
 	}
 }

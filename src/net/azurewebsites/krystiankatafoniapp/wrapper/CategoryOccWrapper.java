@@ -4,17 +4,31 @@ import java.util.Objects;
 
 import net.azurewebsites.krystiankatafoniapp.model.Category;
 
-/*This class is a wrapper for class Category. Object of this class contain object of type Category, occNumber - number which told how many time 
- * exact category object occurs in purchases, percent - percent value, ratio occNumber/allCategoriesInPurchases
- *  */
+/**
+ * This class is a wrapper for class Category. Object of this class contain
+ * object of type Category 
+ * occNumber - number which told how many time exact
+ * category object occurs in purchases
+ * percent - percent value, ratio occNumber/allCategoriesInPurchases
+ * 
+ * @author Krystian Katafoni
+ * @version 1.0
+ * @since 2017-07-16
+ */
 
 public class CategoryOccWrapper {
+	
+	/*Shop Object*/
 	private Category category;
-	private int occNumber;// number of occurrences categories in purchases
-	private float percent;// number of occurrences categories in purchases divide
-							// by number of all categories which occurs in
-							// purchases
-
+	/* Number of occurrences categories in purchases */
+	private int occNumber;
+	/*
+	 * Number of occurrences categories in purchases divide by number of all categories
+	 * which occurs in purchases
+	 */
+	private float percent;
+	
+	/*Getters and Setters*/
 	public float getPercent() {
 		return percent;
 	}
@@ -38,7 +52,8 @@ public class CategoryOccWrapper {
 	public void setOccNumber(int occNumber) {
 		this.occNumber = occNumber;
 	}
-
+	
+	/*Constructors*/
 	public CategoryOccWrapper() {
 	};
 
@@ -46,7 +61,7 @@ public class CategoryOccWrapper {
 		this.category = category;
 		this.occNumber = num;
 	};
-
+	/*Method equals*/
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof CategoryOccWrapper) {
@@ -57,7 +72,7 @@ public class CategoryOccWrapper {
 		}
 		return false;
 	}
-
+	/*Method which return hash Code*/
 	@Override
 	public int hashCode() {
 		return Objects.hash(this.category, this.occNumber, this.percent);
