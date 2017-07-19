@@ -53,11 +53,13 @@ public class ShopOccWrapper {
 
 	/* Constructors */
 	public ShopOccWrapper() {
+		this.percent=0.0f;
 	};
 
 	public ShopOccWrapper(Shop shop, int num) {
 		this.shop = shop;
 		this.occNumber = num;
+		this.percent=0.0f;
 	};
 
 	/* Equals method */

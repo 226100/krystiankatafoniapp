@@ -27,7 +27,7 @@ public class StatisticsController extends HttpServlet {
 			CategoryService categoryService = new CategoryService();
 			ShopService shopService = new ShopService();
 			List<ShopOccWrapper> occShopList = shopService.getWrappedShopsWithPercent(userInSession.getId());
-			List<CategoryOccWrapper> occCategoryList = categoryService.getWrappedCategoriesWithPercent(userInSession.getId());
+			List<CategoryOccWrapper> occCategoryList = categoryService.getWrappedCategoriesWithPercent(userInSession);
 			request.setAttribute("occShopList", occShopList);
 			request.setAttribute("occCategoryList", occCategoryList);
 			request.getRequestDispatcher("WEB-INF/statistics.jsp").forward(request, response);

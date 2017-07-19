@@ -23,10 +23,10 @@ public class LoginController extends HttpServlet {
 			CategoryService categoryService = new CategoryService();
 			ShopService shopService = new ShopService();
 			PurchaseService purchaseService = new PurchaseService();
-			Integer totalCategory = categoryService.amountOfAllCategories(userInSession.getId());
+			Integer totalCategory = categoryService.amountOfAllCategories(userInSession);
 			Integer totalShop = shopService.amountOfAllShops(userInSession.getId());
-			Integer totalPurchase = purchaseService.amountOfAllPurchases(userInSession.getId());
-			Float sumOfPrices = purchaseService.sumOfPrices(userInSession.getId());
+			Integer totalPurchase = purchaseService.amountOfAllPurchases(userInSession);
+			Float sumOfPrices = purchaseService.sumOfPrices(userInSession);
 			request.setAttribute("amountOfAllCategories",totalCategory.toString());
 			request.setAttribute("amountOfAllShops",totalShop.toString());
 			request.setAttribute("amountOfAllPurchases", totalPurchase.toString());

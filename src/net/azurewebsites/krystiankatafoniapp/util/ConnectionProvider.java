@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 /**
- * This class is a provider for database connection.
+ * ConnectionProvider class is a provider for database connection.
  * ConnectionProvider class allow to get data
  * from file context.xml, this data is need for
  * connection with database

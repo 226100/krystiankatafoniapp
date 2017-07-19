@@ -4,12 +4,12 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 public class Purchase {
-	private long id;
+	private Long id;
 	private String purchasename;
 	private User user;
 	private Category category;
 	private Shop shop;
-	private float price;
+	private Float price;
 	private Timestamp timestamp;
 
 	public Purchase() {
@@ -26,19 +26,19 @@ public class Purchase {
 		
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public float getPrice() {
+	public Float getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(Float price) {
 		this.price = price;
 	}
 

@@ -55,11 +55,13 @@ public class CategoryOccWrapper {
 	
 	/*Constructors*/
 	public CategoryOccWrapper() {
+		this.percent=0.0f;
 	};
 
 	public CategoryOccWrapper(Category category, int num) {
 		this.category = category;
 		this.occNumber = num;
+		this.percent=0.0f;
 	};
 	/*Method equals*/
 	@Override
