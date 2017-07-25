@@ -1,11 +1,20 @@
 package net.azurewebsites.krystiankatafoniapp.model;
 
 import java.util.Objects;
-
+/**
+ * Shop class is a model class of one shop
+ * This model is correspond with the data
+ * about shop in database
+ * @author Krystian Katafoni
+ * @version 1.0
+ * @since 2017-06-5
+ */
 public class Shop {
-	private long id;
+	/* Shop id in db */
+	private Long id;
 	private String shopname;
-	private long userId;
+	/* Id of user, who add this shop  */
+	private Long userId;
 
 	public Shop() {
 	};
@@ -15,7 +24,7 @@ public class Shop {
 		this.shopname = shop.shopname;
 		this.userId = shop.userId;
 	}
-	public Shop(long id, String shopname, long userId){
+	public Shop(Long id, String shopname, Long userId){
 		this.id=id;
 		this.shopname=shopname;
 		this.userId=userId;
@@ -24,7 +33,7 @@ public class Shop {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getShopname() {
@@ -39,7 +48,7 @@ public class Shop {
 		return userId;
 	}
 
-	public void setUserId(long userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 

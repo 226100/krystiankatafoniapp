@@ -135,7 +135,7 @@ public class CategoryService {
 	 * @param user- object of user
 	 * @return categoryWrapper - list of all Wrapper categories with setted percentage values
 	 */
-	public List<CategoryOccWrapper> getWrappedCategoriesWithPercent(User user){
+	public List<CategoryOccWrapper> getWrappedCategoriesWithPercent(User user) throws ArithmeticException{
 		int numberOfAllCategories=0;
 		List<CategoryOccWrapper> categoryWrapper = new LinkedList<>();
 		if(user!=null){
@@ -149,6 +149,11 @@ public class CategoryService {
 					for(CategoryOccWrapper item:categoryWrapper){
 						numberOfAllCategories=item.getOccNumber()+numberOfAllCategories;
 					}
+
+					if(numberOfAllCategories==0){
+						throw new ArithmeticException("Number of all categories equals 0");
+					}
+					
 					/*This loop count percentage of one item(category) from set of all categories
 					 * and set this value for categoryItem 
 					 */

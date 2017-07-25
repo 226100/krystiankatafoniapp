@@ -19,8 +19,7 @@
 <!-- Css styles for category page -->
 <link href="${pageContext.request.contextPath}/Resources/css/stylesInterface.css" type="text/css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/Resources/css/stylesPurchase.css" type="text/css" rel="stylesheet">
-<!-- Js script for copy data to modal window(Update window) -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/Resources/js/purchaseUpdateScript.js"></script>
+
 </head>
 
 <body>
@@ -280,5 +279,23 @@
 			</div><!-- modal-content -->
 		</div><!-- modal-dialog modal-lg modal-change -->
 	</div><!-- fade modal, End of modal window -->
+	<!-- Js script for copy data to modal window(Update window) -->
+<script>
+	$('#update')
+	.on('show.bs.modal',function(e) {
+		//get data-id attribute of the clicked element
+		var id = $(e.relatedTarget).data('id');
+		var purchasename = $(e.relatedTarget).data('purchasename');
+		var categoryname = $(e.relatedTarget).data('categoryname');
+		var shopname = $(e.relatedTarget).data('shopname');
+		var price = $(e.relatedTarget).data('price');
+		//populate the textbox and set value in lists
+		$(e.currentTarget).find('input[name="id"]').val(id);
+		$(e.currentTarget).find('input[name="purchasename"]').val(purchasename);
+		$(e.currentTarget).find('input[name="price"]').val(price);
+		$(e.currentTarget).find('select[name="categoryname"]').val(categoryname);
+		$(e.currentTarget).find('select[name="shopname"]').val(shopname);
+	});
+</script>
 </body>
 </html>

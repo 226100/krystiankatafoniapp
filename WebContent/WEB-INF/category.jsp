@@ -20,8 +20,6 @@
 <!-- Css styles for category page -->
 <link href="${pageContext.request.contextPath}/Resources/css/stylesInterface.css" type="text/css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/Resources/css/stylesCategory.css" type="text/css" rel="stylesheet">
-<!-- Js script for copy data to modal window(Update window) -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/Resources/js/categoryUpdateScript.js"></script>
 </head>
 
 <body>
@@ -60,16 +58,16 @@
 									<!-- Counter for id of each element in row, this is not category_id from database, only id on page(for table) -->
 									<%!int counter = 0;%>
 									<!-- Make a row in table for each element from categoryList, loop -->
-									<c:forEach var="categoryItem"
-										items="${requestScope.categoryList }">
+									<c:forEach var="categoryItem" items="${requestScope.categoryList }">
 										<tr>
 											<!-- Increment of counter, because next row in table is made -->
 											<%counter++;%>
 											<td align="center">
 												<!-- Button "update" for update one category, data is send to modal through javascript -->
-												<button type="button" data-toggle="modal"
-												data-target="#update" data-id="${categoryItem.id }"
-												data-user-id="${categoryItem.userId }"
+												<button type="button" 
+												data-toggle="modal"
+												data-target="#update" 
+												data-id="${categoryItem.id }"
 												data-categoryname="${categoryItem.categoryname }"
 												class="btn btn-default">
 													<em class="fa fa-pencil"></em><!-- Pencil glyphicon -->
@@ -198,5 +196,17 @@
 			</div><!-- modal-content -->
 		</div><!-- modal-dialog modal-lg modal-change -->
 	</div><!-- fade modal, End of modal window -->
+	<!-- Js script for copy data to modal window(Update window) -->
+	<script>
+	$('#update')
+	.on('show.bs.modal', function(e) {
+		//get data-id attribute of the clicked element
+		var id = $(e.relatedTarget).data('id');
+		var categoryname = $(e.relatedTarget).data('categoryname');
+		//populate the textbox
+		$(e.currentTarget).find('input[name="id"]').val(id);
+		$(e.currentTarget).find('input[name="categoryname"]').val(categoryname);
+	});
+	</script>
 </body>
 </html>

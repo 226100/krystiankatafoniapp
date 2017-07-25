@@ -2,14 +2,31 @@ package net.azurewebsites.krystiankatafoniapp.model;
 
 import java.sql.Timestamp;
 import java.util.Objects;
-
+/**
+ * Purchase class is a model class of one purchase
+ * This model is correspond with the data
+ * about purchase in database
+ * This model has user,category,shop objects, not only id
+ * because it's easier in view layer to get access to 
+ * displayed data
+ * @author Krystian Katafoni
+ * @version 1.0
+ * @since 2017-06-5
+ */
 public class Purchase {
+	/* Purchase id in db*/
 	private Long id;
+	/* Name of purchase*/
 	private String purchasename;
+	/* Object of user, who add this shop*/
 	private User user;
+	/* Category object assign to this purchase */
 	private Category category;
+	/* Shop object assign to this purchase*/
 	private Shop shop;
+	/* Price of purchase */
 	private Float price;
+	/* Time of added purchase to database */
 	private Timestamp timestamp;
 
 	public Purchase() {

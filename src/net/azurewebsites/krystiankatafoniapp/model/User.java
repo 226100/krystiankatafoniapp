@@ -1,12 +1,21 @@
 package net.azurewebsites.krystiankatafoniapp.model;
 
 import java.util.Objects;
-
+/**
+ * User class is a model class of one user
+ * This model is correspond with the data
+ * about user in database
+ * @author Krystian Katafoni
+ * @version 1.0
+ * @since 2017-06-20
+ */
 public class User {
+	/*User id in database */
 	private Long id;
 	private String username;
 	private String email;
 	private String password;
+	/*If user is active true, if not false*/
 	private boolean active;
 
 	public User() {

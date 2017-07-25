@@ -20,8 +20,6 @@
 <!-- Css styles for shop page -->
 <link href="${pageContext.request.contextPath}/Resources/css/stylesInterface.css" type="text/css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/Resources/css/stylesShop.css" type="text/css" rel="stylesheet">
-<!-- Js script for copy data to modal window(Update window) -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/Resources/js/shopUpdateScript.js"></script>
 </head>
 
 <body>
@@ -196,5 +194,19 @@
 			</div><!-- modal-content -->
 		</div><!-- modal-dialog modal-lg modal-change -->
 	</div><!-- fade modal, End of modal window -->
+<!-- Js script for copy data to modal window(Update window) -->
+<script>
+$('#update').on('show.bs.modal',function(e) {
+	//get data-id attribute of the clicked element
+	var id = $(e.relatedTarget).data('id');
+	var userId = $(e.relatedTarget).data('user-id');
+	var shopname = $(e.relatedTarget).data('shopname');
+	//populate the textbox
+	$(e.currentTarget).find('input[name="id"]').val(id);
+	$(e.currentTarget).find('input[name="userId"]').val(userId);
+	$(e.currentTarget).find('input[name="shopname"]').val(shopname);
+});
+
+</script>
 </body>
 </html>

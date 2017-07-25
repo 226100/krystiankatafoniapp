@@ -24,7 +24,7 @@ public class LoginController extends HttpServlet {
 			ShopService shopService = new ShopService();
 			PurchaseService purchaseService = new PurchaseService();
 			Integer totalCategory = categoryService.amountOfAllCategories(userInSession);
-			Integer totalShop = shopService.amountOfAllShops(userInSession.getId());
+			Integer totalShop = shopService.amountOfAllShops(userInSession);
 			Integer totalPurchase = purchaseService.amountOfAllPurchases(userInSession);
 			Float sumOfPrices = purchaseService.sumOfPrices(userInSession);
 			request.setAttribute("amountOfAllCategories",totalCategory.toString());
