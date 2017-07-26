@@ -11,6 +11,12 @@ import net.azurewebsites.krystiankatafoniapp.model.Purchase;
 import net.azurewebsites.krystiankatafoniapp.model.User;
 import net.azurewebsites.krystiankatafoniapp.service.PurchaseService;
 
+/**
+ * Update purchase controller 
+ * @author Krystian Katafoni
+ * @version 1.0
+ * @since 2017-06-05
+ */
 
 @WebServlet("/updatePurchase")
 public class UpdatePurchaseController extends HttpServlet {
@@ -20,14 +26,19 @@ public class UpdatePurchaseController extends HttpServlet {
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		long purchaseId = Long.parseLong(request.getParameter("id"));
+		Long purchaseId = Long.parseLong(request.getParameter("id"));
 		User userInSession = (User)request.getSession().getAttribute("user");
 		String purchasename = request.getParameter("purchasename");
 		String categoryname = request.getParameter("categoryname");
 		String shopname = request.getParameter("shopname");
-		float price = Float.parseFloat(request.getParameter("price"));
+		Float price = Float.parseFloat(request.getParameter("price"));
 		PurchaseService purchaseService = new PurchaseService();
-		purchaseService.updatePurchase(purchaseId, purchasename, categoryname, shopname, price, userInSession);
+		/*
+		 * Update purchase
+		 */
+		if(purchaseId!=null&&purchasename!=null&&categoryname!=null&&shopname!=null&&price!=null){
+			purchaseService.updatePurchase(purchaseId, purchasename, categoryname, shopname, price, userInSession);
+		}
 		response.sendRedirect(request.getContextPath()+"/purchase");
 		
 	}

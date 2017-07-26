@@ -10,6 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 import net.azurewebsites.krystiankatafoniapp.model.User;
 import net.azurewebsites.krystiankatafoniapp.service.PurchaseService;
 
+/**
+ * Add Purchase controller 
+ * @author Krystian Katafoni
+ * @version 1.0
+ * @since 2017-06-05
+ */
 
 @WebServlet("/addPurchase")
 public class AddPurchaseController extends HttpServlet {
@@ -24,15 +30,18 @@ public class AddPurchaseController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		request.setCharacterEncoding("UTF-8");
 		String purchasename = request.getParameter("purchasename");
-		float price = Float.parseFloat(request.getParameter("price"));
+		Float price = Float.parseFloat(request.getParameter("price"));
 		String categoryname = request.getParameter("categoryname");
 		String shopname = request.getParameter("shopname");
 		User userInSession = (User)request.getSession().getAttribute("user");
 		PurchaseService purchaseService = new PurchaseService();
-		purchaseService.addPurchase(purchasename,categoryname,shopname,price, userInSession);
-		response.sendRedirect(request.getContextPath()+"/purchase");
+		/*
+		 * Add purchase
+		 */
+		if(purchasename!=null&&price!=null&&categoryname!=null&&shopname!=null&&userInSession!=null){
+			purchaseService.addPurchase(purchasename,categoryname,shopname,price, userInSession);
+		}
+			response.sendRedirect(request.getContextPath()+"/purchase");
 	} 
-
 }

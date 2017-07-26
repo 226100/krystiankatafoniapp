@@ -1,6 +1,7 @@
 package net.azurewebsites.krystiankatafoniapp.controller.shop;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,9 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import net.azurewebsites.krystiankatafoniapp.model.Shop;
 import net.azurewebsites.krystiankatafoniapp.model.User;
 import net.azurewebsites.krystiankatafoniapp.service.ShopService;
-
 /**
- * Servlet implementation class UpdateShopController
+ * Update shop controller
+ * @author Krystian Katafoni
+ * @version 1.0
+ * @since 2017-06-05
  */
 @WebServlet("/updateShop")
 public class UpdateShopController extends HttpServlet {
@@ -27,9 +30,14 @@ public class UpdateShopController extends HttpServlet {
 		Long shopId = Long.parseLong(request.getParameter("id"));
 		User user = (User)request.getSession().getAttribute("user");	
 		String shopname = request.getParameter("shopname");
-		Shop shop = new Shop(shopId, shopname, user.getId());
-		ShopService shopService = new ShopService();
-		shopService.updateShop(shop);
+		/*
+		 * Update shop 
+		 */
+		if(shopId!=null&&user!=null&&shopname!=null){
+			Shop shop = new Shop(shopId, shopname, user.getId());
+			ShopService shopService = new ShopService();
+			shopService.updateShop(shop);
+		}
 		response.sendRedirect(request.getContextPath()+"/shop");
 		
 	}

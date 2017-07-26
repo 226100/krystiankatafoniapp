@@ -11,11 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.azurewebsites.krystiankatafoniapp.model.User;
 import net.azurewebsites.krystiankatafoniapp.service.CategoryService;
-import net.azurewebsites.krystiankatafoniapp.service.PurchaseService;
 import net.azurewebsites.krystiankatafoniapp.service.ShopService;
 import net.azurewebsites.krystiankatafoniapp.wrapper.CategoryOccWrapper;
 import net.azurewebsites.krystiankatafoniapp.wrapper.ShopOccWrapper;
-
+/**
+ * Statistics controller 
+ * @author Krystian Katafoni
+ * @version 1.0
+ * @since 2017-06-05
+ */
 @WebServlet("/statistics")
 public class StatisticsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,6 +30,9 @@ public class StatisticsController extends HttpServlet {
 			User userInSession = (User) request.getSession().getAttribute("user");
 			CategoryService categoryService = new CategoryService();
 			ShopService shopService = new ShopService();
+			/* 
+			 * List of shops and categories wrapped with classes(added some variables: number of occurences and percentage value)
+			 */
 			List<ShopOccWrapper> occShopList = shopService.getWrappedShopsWithPercent(userInSession);
 			List<CategoryOccWrapper> occCategoryList = categoryService.getWrappedCategoriesWithPercent(userInSession);
 			request.setAttribute("occShopList", occShopList);

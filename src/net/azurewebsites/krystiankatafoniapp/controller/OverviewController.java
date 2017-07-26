@@ -1,6 +1,7 @@
 package net.azurewebsites.krystiankatafoniapp.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +14,10 @@ import net.azurewebsites.krystiankatafoniapp.service.PurchaseService;
 import net.azurewebsites.krystiankatafoniapp.service.ShopService;
 
 /**
- * Servlet implementation class OverwievController
+ * Overview controller 
+ * @author Krystian Katafoni
+ * @version 1.0
+ * @since 2017-06-05
  */
 @WebServlet("/overview")
 public class OverviewController extends HttpServlet {
@@ -25,14 +29,26 @@ public class OverviewController extends HttpServlet {
 			CategoryService categoryService = new CategoryService();
 			ShopService shopService = new ShopService();
 			PurchaseService purchaseService = new PurchaseService();
+			/*
+			 * Total amount of category, shop or purchase for logged user
+			 */
 			Integer totalCategory = categoryService.amountOfAllCategories(userInSession);
 			Integer totalShop = shopService.amountOfAllShops(userInSession);
 			Integer totalPurchase = purchaseService.amountOfAllPurchases(userInSession);
+			/*
+			 * Sum of all purchase prices
+			 */
 			Float sumOfPrices = purchaseService.sumOfPrices(userInSession);
+			/*
+			 * Set attributes
+			 */
 			request.setAttribute("amountOfAllCategories",totalCategory.toString());
 			request.setAttribute("amountOfAllShops",totalShop.toString());
 			request.setAttribute("amountOfAllPurchases", totalPurchase.toString());
 			request.setAttribute("sumOfPrices", sumOfPrices.toString());
+			/*
+			 * Redirect to mainPage.jsp
+			 */
 			request.getRequestDispatcher("WEB-INF/mainPage.jsp").forward(request, response);
 		}else{
 			response.sendError(403);

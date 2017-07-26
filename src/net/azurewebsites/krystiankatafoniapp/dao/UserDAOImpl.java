@@ -17,12 +17,17 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
 public class UserDAOImpl implements UserDAO {
-
+	/* All queries to database */
 	private static final String CREATE_USER = "INSERT INTO user(username, email, password, is_active) "
 			+ "VALUES (:username, :email, :password, :active);";
 	private static final String READ_USER = "SELECT user_id, username, email, password, is_active FROM user WHERE user_id=:id";
 	private static final String READ_USER_BY_USERNAME = "SELECT user_id, username, email, password, is_active FROM user WHERE username=:username";
 	private static final String USER_EXIST = "SELECT COUNT(username) FROM user WHERE username=:username";
+	
+	/*
+	 * Object SpringJDBC framework of class NamedParameterJdbcTemplate, this
+	 * object allow to execute query in database
+	 */
 	private NamedParameterJdbcTemplate template;
 	
 	public UserDAOImpl(){
@@ -52,7 +57,7 @@ public class UserDAOImpl implements UserDAO {
 		resultUser=template.queryForObject(READ_USER, paramSource,new UserRowMapper());
 		return resultUser;
 	}
-
+	
 	@Override
 	public boolean update(User updateObject) {
 
@@ -88,17 +93,29 @@ public class UserDAOImpl implements UserDAO {
 		}else{result=false;}
 		return result;
 	}
-
+	
 	private class UserRowMapper implements RowMapper<User>{
 
 		@Override
 		public User mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+			Long userId = resultSet.getLong("user_id");
+			String username=resultSet.getString("username");
+			String email=resultSet.getString("email");
+			String password=resultSet.getString("password");
+			boolean isActive=resultSet.getBoolean("is_active");
+
+			/**
+			 * Exception
+			 */
+			if (userId == null | username == null | email == null|password==null) {
+				throw new SQLException("Parameter is not present in DB");
+			}
 			User user = new User();
-			user.setId(resultSet.getLong("user_id"));
-			user.setUsername(resultSet.getString("username"));
-			user.setEmail(resultSet.getString("email"));
-			user.setPassword(resultSet.getString("password"));
-			user.setActive(resultSet.getBoolean("is_active"));
+			user.setId(userId);
+			user.setUsername(username);
+			user.setEmail(email);
+			user.setPassword(password);
+			user.setActive(isActive);
 			return user;
 		}
 		

@@ -1,7 +1,6 @@
 package net.azurewebsites.krystiankatafoniapp.controller.category;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,13 +8,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.azurewebsites.krystiankatafoniapp.model.Category;
 import net.azurewebsites.krystiankatafoniapp.model.User;
 import net.azurewebsites.krystiankatafoniapp.service.CategoryService;
 
 /**
- * Servlet implementation class AddCategoryController
+ * Add Category controller 
+ * @author Krystian Katafoni
+ * @version 1.0
+ * @since 2017-06-05
  */
+
 @WebServlet("/addCategory")
 public class AddCategoryController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -30,11 +32,15 @@ public class AddCategoryController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		request.setCharacterEncoding("UTF-8");
 		String categoryname = request.getParameter("categoryname");
 		User userInSession = (User)request.getSession().getAttribute("user");
 		CategoryService categoryService = new CategoryService();
-		categoryService.addCategory(categoryname, userInSession);
+		/*
+		 * Add category
+		 */
+		if(categoryname!=null&&userInSession!=null){
+			categoryService.addCategory(categoryname, userInSession);
+		}
 		response.sendRedirect(request.getContextPath()+"/category");
 	}
 

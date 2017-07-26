@@ -11,6 +11,20 @@ import net.azurewebsites.krystiankatafoniapp.model.User;
  */
 public interface UserDAO extends GenericDAO<User,Long> {
 	List<User> getAll(Long userId);
-	User getUserByUsername(String user);
+	
+	/**
+	 * This method get user object from database
+	 * on the basis of input argument - object user
+	 * @param user - name of user
+	 * @return object of user from database
+	 */
+	User getUserByUsername(String username);
+	/**
+	 * This method check if user exist in db
+	 * @param username 
+	 * @return result of operation
+	 *         true - user exist
+	 *         false - user  don't exist
+	 */
 	boolean isUserExist(String username);
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ import net.azurewebsites.krystiankatafoniapp.util.ConnectionProvider;
 import net.azurewebsites.krystiankatafoniapp.wrapper.ShopOccWrapper;
 
 public class ShopDAOImpl implements ShopDAO {
-	/* All queries to database*/
+	/* All queries to database */
 	private static final String CREATE_SHOP = "INSERT INTO shop(shop_name,user_id) VALUES(:shopname,:userId);";
 	private static final String READ_SHOP = "SELECT shop_id, shop_name, user_id FROM category WHERE shop_id=:shop_id;";
 	private static final String UPDATE_SHOP = "UPDATE shop SET shop_name=:shopname, user_id=:user_id WHERE shop_id=:shop_id;";
@@ -31,10 +32,10 @@ public class ShopDAOImpl implements ShopDAO {
 	private static final String SHOP_IS_USED = "SELECT COUNT(shop_id) FROM purchase WHERE shop_id=:shop_id";
 	private static final String AMOUNT_OF_ALL_SHOPS = "SELECT COUNT(shop_id) FROM shop WHERE user_id=:user_id";
 	private static final String READ_ALL_SHOPS_FROM_PURCHASES = "SELECT user.user_id, shop.shop_id, shop_name FROM purchase LEFT JOIN shop ON purchase.shop_id=shop.shop_id LEFT JOIN user ON purchase.user_id=user.user_id WHERE purchase.user_id=:user_id;";
-	
-	/* Object SpringJDBC framework of class
-	 * NamedParameterJdbcTemplate, this object allow to
-	 * execute query in database
+
+	/*
+	 * Object SpringJDBC framework of class NamedParameterJdbcTemplate, this
+	 * object allow to execute query in database
 	 */
 	NamedParameterJdbcTemplate template;
 
@@ -43,8 +44,8 @@ public class ShopDAOImpl implements ShopDAO {
 	}
 
 	@Override
-	public Shop create(Shop shop) throws NullPointerException{
-		if(shop==null){
+	public Shop create(Shop shop) throws NullPointerException {
+		if (shop == null) {
 			throw new NullPointerException();
 		}
 		Shop resultShop = new Shop(shop);
@@ -58,8 +59,8 @@ public class ShopDAOImpl implements ShopDAO {
 	}
 
 	@Override
-	public Shop read(Long primaryKey) throws NullPointerException{
-		if(primaryKey==null){
+	public Shop read(Long primaryKey) throws NullPointerException {
+		if (primaryKey == null) {
 			throw new NullPointerException();
 		}
 		Shop resultShop = null;
@@ -69,8 +70,8 @@ public class ShopDAOImpl implements ShopDAO {
 	}
 
 	@Override
-	public boolean update(Shop updateObject) throws NullPointerException{
-		if(updateObject==null){
+	public boolean update(Shop updateObject) throws NullPointerException {
+		if (updateObject == null) {
 			throw new NullPointerException();
 		}
 		Shop shopCopy = updateObject;
@@ -88,8 +89,8 @@ public class ShopDAOImpl implements ShopDAO {
 	}
 
 	@Override
-	public boolean delete(Long key) throws NullPointerException{
-		if(key==null){
+	public boolean delete(Long key) throws NullPointerException {
+		if (key == null) {
 			throw new NullPointerException();
 		}
 		boolean result = false;
@@ -104,8 +105,8 @@ public class ShopDAOImpl implements ShopDAO {
 	}
 
 	@Override
-	public List<Shop> getAll(Long userId) throws NullPointerException{
-		if(userId==null){
+	public List<Shop> getAll(Long userId) throws NullPointerException {
+		if (userId == null) {
 			throw new NullPointerException();
 		}
 		List<Shop> resultList = null;
@@ -115,8 +116,8 @@ public class ShopDAOImpl implements ShopDAO {
 	}
 
 	@Override
-	public int amountOfAllShops(Long userId) throws NullPointerException{
-		if(userId==null){
+	public int amountOfAllShops(Long userId) throws NullPointerException {
+		if (userId == null) {
 			throw new NullPointerException();
 		}
 		Integer result = null;
@@ -129,18 +130,20 @@ public class ShopDAOImpl implements ShopDAO {
 		}
 		return result;
 	}
-	
-	/** shopIsUsed(long key) is a method, which told if shop with id
-	 * like input key is used in any purchase
-	 * this method help to decide if delete shop or not,
-	 * if shop is used in any purchase will be not deleted
-	 * @param key - id of shop
-	 * @return result - true - shop is used in any purchase
-	 *                - false shop is not used
+
+	/**
+	 * shopIsUsed(long key) is a method, which told if shop with id like input
+	 * key is used in any purchase this method help to decide if delete shop or
+	 * not, if shop is used in any purchase will be not deleted
+	 * 
+	 * @param key
+	 *            - id of shop
+	 * @return result - true - shop is used in any purchase - false shop is not
+	 *         used
 	 * @throws NullPointerException
-	 * */
-	public boolean shopIsUsed(Long key) throws NullPointerException{
-		if(key==null){
+	 */
+	public boolean shopIsUsed(Long key) throws NullPointerException {
+		if (key == null) {
 			throw new NullPointerException();
 		}
 		boolean result = true;
@@ -153,31 +156,36 @@ public class ShopDAOImpl implements ShopDAO {
 		}
 		return result;
 	}
-	
-	/** getAllShopsFromPurchases(Long userId) - get amount of all shops added by user to purchases
-	 * @param userId This is id of user which is current logged in
-	 * @return resultList - this is a list of all shops which are used in any purchases for logged user
+
+	/**
+	 * getAllShopsFromPurchases(Long userId) - get amount of all shops added by
+	 * user to purchases
+	 * 
+	 * @param userId
+	 *            This is id of user which is current logged in
+	 * @return resultList - this is a list of all shops which are used in any
+	 *         purchases for logged user
 	 * @throws NullPointerException
-	 * */
-	public List<Shop> getAllShopsFromPurchases(Long userId) throws NullPointerException{
-		if(userId==null){
+	 */
+	public List<Shop> getAllShopsFromPurchases(Long userId) throws NullPointerException {
+		if (userId == null) {
 			throw new NullPointerException();
 		}
-		List<Shop> resultList = null;
+		List<Shop> resultList = new LinkedList<>();
 		SqlParameterSource paramSource = new MapSqlParameterSource("user_id", userId);
 		resultList = template.query(READ_ALL_SHOPS_FROM_PURCHASES, paramSource, new ShopRowMapper());
 		return resultList;
 	}
-	
+
 	@Override
 	public List<ShopOccWrapper> getWrappedShops(Long userId) throws NullPointerException {
-		if(userId==null){
+		if (userId == null) {
 			throw new NullPointerException();
 		}
-		List<Shop> shopList = new ArrayList<>();
-		List<ShopOccWrapper> occList = new ArrayList<>();
+		List<Shop> shopList = new LinkedList<>();
+		List<ShopOccWrapper> occList = new LinkedList<>();
 		shopList = getAllShopsFromPurchases(userId);
-		List<Shop> copyList = new ArrayList<>(shopList);
+		List<Shop> copyList = new LinkedList<>(shopList);
 
 		shopList.stream().forEach(shopItem -> {
 
@@ -194,13 +202,13 @@ public class ShopDAOImpl implements ShopDAO {
 	private class ShopRowMapper implements RowMapper<Shop> {
 		@Override
 		public Shop mapRow(ResultSet resultSet, int rowNum) throws SQLException {
-			Long shopId=resultSet.getLong("shop_id");
-			String shopname=resultSet.getString("shop_name");
-			Long userId=resultSet.getLong("user_id");
+			Long shopId = resultSet.getLong("shop_id");
+			String shopname = resultSet.getString("shop_name");
+			Long userId = resultSet.getLong("user_id");
 			/**
 			 * Exception
 			 */
-			if(shopId==null|shopname==null|userId==null){
+			if (shopId == null | shopname == null | userId == null) {
 				throw new SQLException("Parameter is not present in DB");
 			}
 			Shop shop = new Shop();
